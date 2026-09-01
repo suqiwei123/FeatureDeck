@@ -126,6 +126,16 @@ namespace FeatureDeck.ViewModels
 
         public bool HasSelection => SelectedItems.Count > 0;
 
+        /// <summary>语言切换按钮的显示文本（跟随系统时显示当前语言名）。</summary>
+        public string LanguageLabel =>
+            string.IsNullOrEmpty(AppResources.UserOverrideLanguage)
+                ? AppResources.Get("LangFollowSystem")
+                : (AppResources.CurrentLanguage == AppResources.DefaultLanguage
+                    ? AppResources.Get("LangChinese")
+                    : AppResources.Get("LangEnglish"));
+
+        public string LanguageToolTip => AppResources.Get("LangButton.ToolTipService.ToolTip");
+
         public async Task InitializeAsync()
         {
             Summary = AppResources.Get("Ready");

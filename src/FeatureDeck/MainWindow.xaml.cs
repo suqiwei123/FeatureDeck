@@ -5,6 +5,7 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using FeatureDeck.Models;
 using FeatureDeck.Services;
@@ -47,7 +48,95 @@ namespace FeatureDeck
                 return;
             }
 
+            // 系统语言不受支持时，自动弹出语言选择界面
+            if (AppResources.NeedsLanguageSelection)
+            {
+                await ShowLanguagePickerAsync(automatic: true);
+            }
+
             await ViewModel.InitializeAsync();
+        }
+
+        private async void LanguageButton_Click(object sender, RoutedEventArgs e)
+            => await ShowLanguagePickerAsync(automatic: false);
+
+        /// <summary>弹出语言选择界面。automatic=true 表示系统语言不支持时自动触发。</summary>
+        private async Task ShowLanguagePickerAsync(bool automatic)
+        {
+            var panel = new StackPanel { Spacing = 10 };
+            panel.Children.Add(new TextBlock
+            {
+                Text = AppResources.Get("LangBody"),
+                TextWrapping = TextWrapping.Wrap
+            });
+
+            var followBtn = new Button
+            {
+                Content = AppResources.Get("LangFollowSystem"),
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+            var zhBtn = new Button
+            {
+                Content = AppResources.Get("LangChinese"),
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+            var enBtn = new Button
+            {
+                Content = AppResources.Get("LangEnglish"),
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+            panel.Children.Add(followBtn);
+            panel.Children.Add(zhBtn);
+            panel.Children.Add(enBtn);
+
+            var dialog = new ContentDialog
+            {
+                Title = AppResources.Get("LangTitle"),
+                Content = panel,
+                CloseButtonText = AppResources.Get("LangLater"),
+                DefaultButton = ContentDialogButton.Close,
+                XamlRoot = Content.XamlRoot
+            };
+
+            string chosen = null;
+            followBtn.Click += (_, _) => { chosen = AppResources.FollowSystem; dialog.Hide(); };
+            zhBtn.Click += (_, _) => { chosen = AppResources.DefaultLanguage; dialog.Hide(); };
+            enBtn.Click += (_, _) => { chosen = AppResources.EnglishLanguage; dialog.Hide(); };
+
+            await dialog.ShowAsync();
+            if (chosen == null) return; // 用户点「稍后」，保持当前语言
+
+            AppResources.SetLanguage(chosen);
+
+            // 语言切换需重启生效
+            var restart = new ContentDialog
+            {
+                Title = AppResources.Get("LangTitle"),
+                Content = AppResources.Get("LangRestartHint"),
+                PrimaryButtonText = AppResources.Get("LangRestartNow"),
+                CloseButtonText = AppResources.Get("LangLater"),
+                DefaultButton = ContentDialogButton.Primary,
+                XamlRoot = Content.XamlRoot
+            };
+
+            var result = await restart.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+                RestartApp();
+        }
+
+        private static void RestartApp()
+        {
+            try
+            {
+                var exe = Environment.ProcessPath;
+                if (!string.IsNullOrEmpty(exe))
+                    Process.Start(new ProcessStartInfo { FileName = exe, UseShellExecute = true });
+            }
+            catch
+            {
+                // 重启失败则用户可手动重启
+            }
+            Application.Current.Exit();
         }
 
         private void ResizeWindow()

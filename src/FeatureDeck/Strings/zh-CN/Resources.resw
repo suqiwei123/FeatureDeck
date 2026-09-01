@@ -354,4 +354,32 @@
   <data name="ReadErrorPrefixFormat" xml:space="preserve">
     <value>读取特性配置时发生错误：{0}</value>
   </data>
+  <!-- 语言切换 -->
+  <data name="LangTitle" xml:space="preserve">
+    <value>选择语言</value>
+  </data>
+  <data name="LangBody" xml:space="preserve">
+    <value>未检测到受支持的系统语言，请选择界面语言：</value>
+  </data>
+  <data name="LangChinese" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="LangEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LangFollowSystem" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="LangRestartHint" xml:space="preserve">
+    <value>语言设置已保存，重启后生效。</value>
+  </data>
+  <data name="LangRestartNow" xml:space="preserve">
+    <value>立即重启</value>
+  </data>
+  <data name="LangLater" xml:space="preserve">
+    <value>稍后</value>
+  </data>
+  <data name="LangButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>切换界面语言</value>
+  </data>
 </root>

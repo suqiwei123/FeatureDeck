@@ -48,6 +48,16 @@
                 <Button x:Uid="FullResetButton" Click="FullResetButton_Click" />
                 <Button x:Uid="FixLkgButton" Click="FixLkgButton_Click" />
             </StackPanel>
+
+            <Button Grid.Column="4"
+                    Click="LanguageButton_Click"
+                    VerticalAlignment="Bottom"
+                    ToolTipService.ToolTip="{x:Bind ViewModel.LanguageToolTip, Mode=OneWay}">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon Glyph="&#xE8D2;" FontSize="14" />
+                    <TextBlock Text="{x:Bind ViewModel.LanguageLabel, Mode=OneWay}" />
+                </StackPanel>
+            </Button>
         </Grid>
 
         <Grid Grid.Row="1" ColumnSpacing="8" Margin="0,0,0,8">

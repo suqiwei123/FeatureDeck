@@ -1,13 +1,13 @@
 @echo off
 rem ============================================================
-rem  Publish ViVeTool.GUI to your GitHub fork
+rem  Publish FeatureDeck to your GitHub fork
 rem  Before running: fork https://github.com/thebookisclosed/ViVe
 rem ============================================================
 setlocal
 cd /d "%~dp0"
 
 echo.
-echo   ViVeTool.GUI - Publish to GitHub Fork
+echo   FeatureDeck - Publish to GitHub Fork
 echo   ======================================
 echo.
 echo IMPORTANT: This will OVERWRITE the content of your fork

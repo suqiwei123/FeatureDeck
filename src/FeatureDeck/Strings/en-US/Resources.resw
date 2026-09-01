@@ -354,4 +354,32 @@
   <data name="ReadErrorPrefixFormat" xml:space="preserve">
     <value>Error reading feature configurations: {0}</value>
   </data>
+  <!-- Language selection -->
+  <data name="LangTitle" xml:space="preserve">
+    <value>Choose Language</value>
+  </data>
+  <data name="LangBody" xml:space="preserve">
+    <value>No supported system language detected. Please choose a language:</value>
+  </data>
+  <data name="LangChinese" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="LangEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LangFollowSystem" xml:space="preserve">
+    <value>Follow system</value>
+  </data>
+  <data name="LangRestartHint" xml:space="preserve">
+    <value>Language preference saved. It will take effect after restart.</value>
+  </data>
+  <data name="LangRestartNow" xml:space="preserve">
+    <value>Restart now</value>
+  </data>
+  <data name="LangLater" xml:space="preserve">
+    <value>Later</value>
+  </data>
+  <data name="LangButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Switch UI language</value>
+  </data>
 </root>
