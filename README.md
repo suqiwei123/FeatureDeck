@@ -1,85 +1,97 @@
 # FeatureDeck
 
-**给 Windows 的隐藏开关装一个控制台。**
+**[English](README.md) · [简体中文](README.zh-CN.md)**
 
-Windows 内部藏着几千个通过 A/B 灰度下发的特性开关（Feature Staging）——微软用它们分批推送新界面和新功能，而你在「设置」里永远找不到它们。FeatureDeck 把这 2800+ 条配置摊到一张表上：查得到名字、看得懂含义、改得动状态，改错了还能一键还原。
+**A control panel for Windows' hidden feature switches.**
 
-它是 [ViVe](https://github.com/thebookisclosed/ViVe) 的 WinUI 3 图形界面：沿用原版的内核调用，补上了官方名称字典、搜索筛选、批量操作和一套防误触保护，并修复了原版在 Windows 11 24H2/25H2 上必现的访问违规崩溃。
+Inside Windows there are thousands of feature switches (Feature Staging) rolled out gradually via A/B testing — Microsoft uses them to ship new UI and features in batches, and you'll never find them in Settings. FeatureDeck lays those 2800+ configurations out in a single table: look up names, understand what they do, flip their state, and revert everything with one click if something goes wrong.
 
-<small>原名 ViVe 图形化工具（ViVeTool.GUI），fork 自 [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)。</small>
+It is a WinUI 3 front-end for [ViVe](https://github.com/thebookisclosed/ViVe): it keeps the original kernel calls, adds the official name dictionary, search & filtering, batch operations, and a set of accidental-change protections — and fixes the access-violation crash the original always hits on Windows 11 24H2/25H2.
+
+<small>Originally "ViVe 图形化工具" (ViVeTool.GUI), forked from [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe).</small>
 
 | | |
 |---|---|
-| **上游项目** | [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)（原作者 @thebookisclosed） |
-| **本 fork 的改动** | 在 ViVe 内核层之上增加 WinUI 3 图形界面、特性名称字典、搜索筛选、双存储切换、批量操作等 |
-| **技术栈** | C# / WinUI 3 / .NET 8（WindowsAppSDK 1.8，unpackaged 自包含部署） |
-| **许可证** | GPLv3（与上游一致，见 [LICENSE](LICENSE)） |
+| **Upstream** | [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe) (by @thebookisclosed) |
+| **This fork adds** | WinUI 3 GUI, feature name dictionary, search & filter, dual-store switching, batch operations, crash fix for 24H2/25H2 |
+| **Tech stack** | C# / WinUI 3 / .NET 8 (WindowsAppSDK 1.8, unpackaged self-contained) |
+| **License** | GPLv3 (same as upstream, see [LICENSE](LICENSE)) |
 
-> 本 fork 基于 ViVe（GPLv3）的公开源码移植内核层，同样以 GPLv3 授权。**仅供研究用途**，修改系统特性配置存在风险，请自行判断后果。
+> This fork is based on the public source of ViVe (GPLv3) and is licensed under GPLv3 as well. **For research purposes only.** Modifying system feature configurations is risky; proceed at your own discretion.
 
-## 功能（当前版本 v0.1，里程碑 M0–M4）
+## Features (current version v0.1, milestones M0–M4)
 
-| 功能 | 说明 |
+| Feature | Description |
 |---|---|
-| 特性总览 | 展示系统全部特性配置（ID、名称、优先级、状态、类型、变体），本机实测 2800+ 条 |
-| 名称字典 | 内置官方 `FeatureDictionary.pfs`，自动把数字 ID 翻译成可读名称 |
-| 搜索 / 筛选 | 按名称或 ID 实时搜索；按「被改过 / 可修改 / 实验配置 / 有订阅」筛选 |
-| 双存储 | 在 运行时（立即生效）与 启动时（重启生效）之间切换或同时操作 |
-| 启用 / 禁用 | 单行或批量操作；写入启动存储后自动设置待重启标记 |
-| 还原 | 单条还原用户覆盖；「全部还原」需二次确认 |
-| 保护机制 | 系统镜像管理（Immutable）的条目置灰不可改，防止写入被拒绝 |
-| 中英双语 | 界面支持简体中文/英文，默认跟随系统语言；系统语言不受支持时自动弹出语言选择界面，也可随时手动切换（重启生效） |
-| 启动存储修复 | 一键修复被系统写坏的 Last Known Good 存储 |
+| Overview | Shows all system feature configurations (ID, name, priority, state, type, variant) — 2800+ entries measured on this machine |
+| Name dictionary | Bundled official `FeatureDictionary.pfs`; numeric IDs are translated to readable names automatically |
+| Search / filter | Real-time search by name or ID; filter by "modified / editable / experimental / subscribed" |
+| Dual stores | Switch between or operate on both  Runtime (takes effect immediately) and  Boot (takes effect after restart) |
+| Enable / disable | Single-row or batch operations; a pending-restart marker is set automatically after writing to the boot store |
+| Reset | Reset user overrides per row; "reset all" requires a confirmation |
+| Protection | Entries managed by the system image (Immutable) are greyed out to prevent rejected writes |
+| Bilingual UI | Simplified Chinese / English; follows the system language by default — a language picker pops up automatically when the system language is unsupported, and you can always switch manually (takes effect after restart) |
+| Boot store repair | One-click repair of a corrupted Last Known Good store header |
 
-## 系统要求
+## Requirements
 
-- Windows 10 build 18963 及以上（Windows 11 均可）
-- 需要**管理员权限**运行（写入配置、修改注册表所必需）
+- Windows 10 build 18963 or later (all Windows 11 versions work)
+- **Administrator** privileges required (needed for writing configurations and registry changes)
 
-## 构建与运行
+## Build & Run
 
-方式一：双击根目录的 `build_and_run.cmd`（自动构建并启动）。
+Option 1: double-click `build_and_run.cmd` in the repo root (builds and launches automatically).
 
-方式二：手动构建
+Option 2: build manually
 
 ```bash
 cd src/FeatureDeck
 dotnet build -c Release -p:Platform=x64
 ```
 
-启动（会弹 UAC 提权确认）：
+Launch (a UAC elevation prompt will appear):
 
 ```
 src\FeatureDeck\bin\x64\Release\net8.0-windows10.0.19041.0\FeatureDeck.exe
 ```
 
-已启用 WindowsAppSDK 自包含部署，**无需预先安装任何运行时**，拷贝输出目录即可绿色运行。
+WindowsAppSDK self-contained deployment is enabled — **no runtime installation needed**, just copy the output directory and run.
 
-## 项目结构
+## Release
+
+Pre-built packages are published on the [Releases](https://github.com/suqiwei123/FeatureDeck/releases) page. To build a release zip locally:
+
+```
+build_release.cmd 0.1.0
+```
+
+Output: `dist\FeatureDeck-v0.1.0-win-x64.zip` (self-contained, extract and run).
+
+## Project Structure
 
 ```
 src/
-  FeatureDeck/          主程序（WinUI 3）
-    Native/              内核层：ntdll P/Invoke、结构体位域、FeatureManager（从 ViVe 移植）
-    Services/            服务层：查询合并、字典映射、NTSTATUS 翻译
-    Models/              数据模型
-    ViewModels/          主界面视图模型
-    Converters/          XAML 转换器
-    Assets/              官方特性名称字典
-  ViVeProbe/             控制台探针（诊断工具，验证内核层工作是否正常）
+  FeatureDeck/          Main app (WinUI 3)
+    Native/              Kernel layer: ntdll P/Invoke, struct bitfields, FeatureManager (ported from ViVe)
+    Services/            Service layer: query merge, dictionary mapping, NTSTATUS translation
+    Models/              Data models
+    ViewModels/          Main UI view model
+    Converters/          XAML converters
+    Assets/              Official feature name dictionary
+  ViVeProbe/             Console probe (diagnostics tool to verify the kernel layer)
 ```
 
-## 已知注意事项
+## Known Notes
 
-1. **25H2 兼容性修正**：原版 ViVe 的「先传 null 缓冲区再取数量」调用方式在 Windows 11 24H2/25H2 上会触发访问违规崩溃，本项目已改为「预分配缓冲区 + 容量 in/out」的标准用法，实测正常。
-2. 受保护优先级（ImageDefault / EKB / ImageDefaultEditionOverride / Security / ImageOverride）不可写入，界面已置灰。
-3. 写入「启动时」存储后需重启系统才生效。
-4. 查询不需要管理员权限，但写入操作必须有。
-5. 同一个功能 ID 可能对应多个优先级条目，表格按 (ID, 优先级) 分行展示。
+1. **24H2/25H2 compatibility fix**: the original ViVe's "pass null buffer first, then get count" call pattern triggers an access-violation crash on Windows 11 24H2/25H2. This project uses the standard "pre-allocate buffer + capacity in/out" pattern, verified working.
+2. Protected priorities (ImageDefault / EKB / ImageDefaultEditionOverride / Security / ImageOverride) cannot be written and are greyed out in the UI.
+3. Writes to the "Boot" store require a system restart to take effect.
+4. Querying does not require administrator privileges, but writing does.
+5. The same feature ID may map to multiple priority entries; the table lists them as separate rows by (ID, priority).
 
-## 命令行诊断
+## CLI Diagnostics
 
-内核层出问题时，可用探针快速定位：
+If the kernel layer misbehaves, use the probe to locate the problem quickly:
 
 ```bash
 cd src/ViVeProbe
