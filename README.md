@@ -97,3 +97,11 @@ If the kernel layer misbehaves, use the probe to locate the problem quickly:
 cd src/ViVeProbe
 dotnet run -c Debug -p:Platform=x64
 ```
+
+## Contributing
+
+Contributions are welcome — bug reports, feature suggestions, dictionary updates, and pull requests. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first (development setup, code conventions, and PR checklist), and follow the issue/PR templates in [.github](.github). All participants are expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## License
+
+GPLv3 — see [LICENSE](LICENSE). This project is a fork of [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe). For research purposes only; modifying system feature configurations is risky.

@@ -97,3 +97,11 @@ src/
 cd src/ViVeProbe
 dotnet run -c Debug -p:Platform=x64
 ```
+
+## 参与贡献
+
+欢迎任何形式的贡献——Bug 反馈、功能建议、字典补充、Pull Request。请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)（开发环境、代码约定、PR 检查清单），提交 Issue/PR 时使用 [.github](.github) 中的模板。所有参与者需遵守[行为准则](CODE_OF_CONDUCT.md)。
+
+## 许可证
+
+GPLv3——见 [LICENSE](LICENSE)。本项目 fork 自 [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)。仅供研究用途，修改系统特性配置存在风险。
