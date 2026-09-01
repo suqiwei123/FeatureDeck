@@ -167,7 +167,13 @@ namespace FeatureDeck.Services
         {
             try
             {
-                Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = CurrentLanguage;
+                // 必须用 MRT Core 版（Microsoft.Windows.Globalization）：
+                // unpackaged 应用中 Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride
+                // 会抛"进程没有包标识"异常且不生效；
+                // MRT Core 版从 WinAppSDK 1.6 起支持 unpackaged，且同时影响
+                // ResourceLoader.GetString 与 XAML 的 x:Uid 解析。
+                // 注意：unpackaged 下该值不持久化，须在每次启动、任何资源加载前设置。
+                Microsoft.Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = CurrentLanguage;
             }
             catch
             {

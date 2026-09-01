@@ -12,6 +12,18 @@ namespace FeatureDeck
 
         public App()
         {
+            // 必须在任何资源加载之前设置语言：
+            // unpackaged 应用 PrimaryLanguageOverride 不持久化，须每次启动重设，
+            // 且要早于 InitializeComponent（XBF 资源）与 MainWindow 的 x:Uid 解析
+            try
+            {
+                AppResources.InitializeLanguage();
+            }
+            catch (Exception ex)
+            {
+                LogCrash("InitLanguage", ex);
+            }
+
             InitializeComponent();
 
             // 全局异常兜底：写崩溃日志便于诊断，避免静默闪退
@@ -27,16 +39,6 @@ namespace FeatureDeck
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            // 启动时确定语言：默认跟随系统，不受支持时回退英文
-            try
-            {
-                AppResources.InitializeLanguage();
-            }
-            catch (Exception ex)
-            {
-                LogCrash("InitLanguage", ex);
-            }
-
             _window = new MainWindow();
             _window.Activate();
         }
