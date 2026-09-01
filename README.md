@@ -1,8 +1,17 @@
 # ViVe 图形化工具（ViVeTool.GUI）
 
-[ViVe](https://github.com/thebookisclosed/ViVe) 的 Windows 图形化版本：查询、启用、禁用、还原 Windows 10/11 的 A/B 特性配置（Feature Staging）。
+> 本项目 fork 自 [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)，是其 Windows 图形化版本。
 
-> 本项目基于 ViVe（GPLv3）的公开源码移植内核层，同样以 GPLv3 授权。**仅供研究用途**，修改系统特性配置存在风险，请自行判断后果。
+查询、启用、禁用、还原 Windows 10/11 的 A/B 特性配置（Feature Staging）。
+
+| | |
+|---|---|
+| **上游项目** | [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)（原作者 @thebookisclosed） |
+| **本 fork 的改动** | 在 ViVe 内核层之上增加 WinUI 3 图形界面、特性名称字典、搜索筛选、双存储切换、批量操作等 |
+| **技术栈** | C# / WinUI 3 / .NET 8（WindowsAppSDK 1.8，unpackaged 自包含部署） |
+| **许可证** | GPLv3（与上游一致，见 [LICENSE](LICENSE)） |
+
+> 本 fork 基于 ViVe（GPLv3）的公开源码移植内核层，同样以 GPLv3 授权。**仅供研究用途**，修改系统特性配置存在风险，请自行判断后果。
 
 ## 功能（当前版本 v0.1，里程碑 M0–M4）
 
