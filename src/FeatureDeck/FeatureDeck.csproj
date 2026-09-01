@@ -4,8 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <RootNamespace>ViVeTool.GUI</RootNamespace>
-    <AssemblyName>ViVeTool.GUI</AssemblyName>
+    <RootNamespace>FeatureDeck</RootNamespace>
+    <AssemblyName>FeatureDeck</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x64</Platforms>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
@@ -28,6 +28,25 @@
     <None Update="Assets\FeatureDictionary.pfs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Strings\**\*.resw">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+
+  <!-- PRI 资源（中英文 UI 文本）编译进主 pri -->
+  <ItemGroup>
+    <PRIResource Include="Strings\**\*.resw" />
+  </ItemGroup>
+
+  <!--
+    WindowsAppSDK 1.8 unpackaged 应用已知问题（issue #5832）：
+    生成的 PRI 名为 {AssemblyName}.pri，但运行时 ResourceLoader 查找 resources.pri，
+    不复制会导致资源加载失败。构建后把 PRI 复制为 resources.pri。
+  -->
+  <Target Name="CopyPriToResourcesPri" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetDir)$(AssemblyName).pri"
+          DestinationFiles="$(TargetDir)resources.pri"
+          SkipUnchangedFiles="true" />
+  </Target>
 
 </Project>

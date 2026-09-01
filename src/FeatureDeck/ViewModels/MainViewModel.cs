@@ -8,10 +8,10 @@ using Albacore.ViVe;
 using Albacore.ViVe.NativeEnums;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using ViVeTool.GUI.Models;
-using ViVeTool.GUI.Services;
+using FeatureDeck.Models;
+using FeatureDeck.Services;
 
-namespace ViVeTool.GUI.ViewModels
+namespace FeatureDeck.ViewModels
 {
     public enum StoreTarget
     {
@@ -28,7 +28,7 @@ namespace ViVeTool.GUI.ViewModels
         private int _filterIndex;
         private StoreTarget _store = StoreTarget.Runtime;
         private bool _isBusy;
-        private string _summary = "准备就绪";
+        private string _summary = string.Empty;
         private int _selectedCount;
         private bool _bootUnavailable;
 
@@ -98,8 +98,19 @@ namespace ViVeTool.GUI.ViewModels
         public int SelectedCount
         {
             get => _selectedCount;
-            set { _selectedCount = value; OnPropertyChanged(); }
+            set
+            {
+                _selectedCount = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedCountText));
+            }
         }
+
+        public string SelectedCountText =>
+            $"{AppResources.Get("SelectedPrefix")} {_selectedCount} {AppResources.Get("SelectedSuffix")}";
+
+        public string BuildVersionText =>
+            $"{AppResources.Get("BuildVersionPrefix")} {BuildNumber}";
 
         public bool BootUnavailable
         {
@@ -117,6 +128,8 @@ namespace ViVeTool.GUI.ViewModels
 
         public async Task InitializeAsync()
         {
+            Summary = AppResources.Get("Ready");
+
             int dictCount = 0;
             try
             {
@@ -130,7 +143,7 @@ namespace ViVeTool.GUI.ViewModels
             await RefreshAsync();
 
             if (dictCount == 0)
-                Summary += "　（未找到名称字典，仅显示 ID）";
+                Summary += AppResources.Get("NoDictionarySuffix");
         }
 
         public async Task RefreshAsync()
@@ -138,7 +151,7 @@ namespace ViVeTool.GUI.ViewModels
             if (IsBusy) return;
 
             IsBusy = true;
-            Summary = "正在读取特性配置…";
+            Summary = AppResources.Get("Loading");
 
             try
             {
@@ -151,21 +164,24 @@ namespace ViVeTool.GUI.ViewModels
                 ApplyFilter();
 
                 var named = _allItems.Count(x => x.HasName);
+                var percent = 100.0 * named / Math.Max(1, _allItems.Count);
                 Summary = result.Error ??
-                    $"共 {_allItems.Count} 条，已命名 {named} 条（{100.0 * named / Math.Max(1, _allItems.Count):F1}%）　·　字典 {FeatureNaming.LoadedCount} 条　·　内部版本 {BuildNumber}";
+                    AppResources.Format("SummaryFormat",
+                        _allItems.Count, named, $"{percent:F1}%", FeatureNaming.LoadedCount, BuildNumber);
 
                 if (result.Error != null)
-                    await ShowMessageAsync("读取失败", result.Error);
+                    await ShowMessageAsync(AppResources.Get("ReadFailedTitle"), result.Error);
                 else if (result.BootStoreUnavailable)
-                    Summary += "　·　启动存储暂不可用";
+                    Summary += AppResources.Get("BootUnavailableSuffix");
             }
             catch (Exception ex)
             {
                 // 换设备/环境时底层 ntdll 行为可能不同，任何未预期异常都降级为友好提示而非崩溃
                 _allItems.Clear();
                 ApplyFilter();
-                Summary = $"读取特性配置时发生错误：{ex.Message}";
-                await ShowMessageAsync("读取失败", $"读取本机特性配置时出现异常：\n{ex.Message}");
+                Summary = AppResources.Format("ReadErrorPrefixFormat", ex.Message);
+                await ShowMessageAsync(AppResources.Get("ReadFailedTitle"),
+                    AppResources.Format("ReadFailedMessageFormat", ex.Message));
             }
             finally
             {
@@ -211,7 +227,7 @@ namespace ViVeTool.GUI.ViewModels
             }
 
             Filtered = query.ToList();
-            Summary = $"共 {_allItems.Count} 条，当前显示 {Filtered.Count} 条";
+            Summary = AppResources.Format("SummaryFilterFormat", _allItems.Count, Filtered.Count);
             OnPropertyChanged(nameof(IsEmpty));
         }
 
@@ -223,17 +239,17 @@ namespace ViVeTool.GUI.ViewModels
         }
 
         public async Task EnableSelectedAsync()
-            => await ApplyStateAsync(RTL_FEATURE_ENABLED_STATE.Enabled, "启用", confirm: true);
+            => await ApplyStateAsync(RTL_FEATURE_ENABLED_STATE.Enabled, AppResources.Get("ActionEnable"), confirm: true);
 
         public async Task DisableSelectedAsync()
-            => await ApplyStateAsync(RTL_FEATURE_ENABLED_STATE.Disabled, "禁用", confirm: true);
+            => await ApplyStateAsync(RTL_FEATURE_ENABLED_STATE.Disabled, AppResources.Get("ActionDisable"), confirm: true);
 
         // 行内按钮已经表达了明确意图，不再弹确认框，失败时才提示
         public Task EnableSingleAsync(FeatureItem item)
-            => ApplySingleAsync(item, RTL_FEATURE_ENABLED_STATE.Enabled, "启用");
+            => ApplySingleAsync(item, RTL_FEATURE_ENABLED_STATE.Enabled, AppResources.Get("ActionEnable"));
 
         public Task DisableSingleAsync(FeatureItem item)
-            => ApplySingleAsync(item, RTL_FEATURE_ENABLED_STATE.Disabled, "禁用");
+            => ApplySingleAsync(item, RTL_FEATURE_ENABLED_STATE.Disabled, AppResources.Get("ActionDisable"));
 
         public Task ResetSingleAsync(FeatureItem item)
         {
@@ -261,7 +277,7 @@ namespace ViVeTool.GUI.ViewModels
             var targets = SelectedItems.Where(x => x.CanEdit).ToList();
             if (targets.Count == 0)
             {
-                await ShowMessageAsync("无法操作", "选中的条目由系统镜像管理，不允许修改。");
+                await ShowMessageAsync(AppResources.Get("CannotOperateTitle"), AppResources.Get("CannotModifyMessage"));
                 return;
             }
 
@@ -270,11 +286,19 @@ namespace ViVeTool.GUI.ViewModels
 
             if (confirm)
             {
+                var body = state == RTL_FEATURE_ENABLED_STATE.Enabled
+                    ? AppResources.Format("ConfirmBodyEnableFormat", targets.Count, storeText)
+                    : AppResources.Format("ConfirmBodyDisableFormat", targets.Count, storeText);
+
+                var extra = string.Empty;
+                if (skipped > 0)
+                    extra += "\n" + AppResources.Format("SkippedSuffixFormat", skipped);
+                if (_store != StoreTarget.Runtime)
+                    extra += "\n\n" + AppResources.Get("BootRebootNotice");
+
                 var confirmed = await ConfirmAsync(
-                    $"确认{actionName}",
-                    $"将对 {targets.Count} 条特性执行「{actionName}」，目标存储：{storeText}。"
-                    + (skipped > 0 ? $"\n另有 {skipped} 条为系统受保护条目，将被跳过。" : string.Empty)
-                    + (_store != StoreTarget.Runtime ? "\n\n写入启动存储后需要重启系统才会生效。" : string.Empty));
+                    AppResources.Format("ConfirmTitleFormat", actionName),
+                    body + extra);
 
                 if (!confirmed) return;
             }
@@ -301,15 +325,17 @@ namespace ViVeTool.GUI.ViewModels
             var targets = SelectedItems.Where(x => x.CanEdit).ToList();
             if (targets.Count == 0)
             {
-                await ShowMessageAsync("无法操作", "选中的条目由系统镜像管理，不允许还原。");
+                await ShowMessageAsync(AppResources.Get("CannotOperateTitle"),
+                    AppResources.Format("CannotModifyMessage"));
                 return;
             }
 
             if (confirm)
             {
                 var confirmed = await ConfirmAsync(
-                    "确认还原",
-                    $"将清除 {targets.Count} 条特性的用户覆盖，恢复系统默认状态。\n目标存储：{DescribeStore()}");
+                    AppResources.Format("ConfirmTitleFormat", AppResources.Get("ActionReset")),
+                    AppResources.Format("ConfirmBodyResetFormat", targets.Count,
+                        AppResources.Format("TargetStoreFormat", DescribeStore())));
 
                 if (!confirmed) return;
             }
@@ -322,7 +348,7 @@ namespace ViVeTool.GUI.ViewModels
                     _store is StoreTarget.Runtime or StoreTarget.Both,
                     _store is StoreTarget.Boot or StoreTarget.Both));
 
-                await ShowResultAsync(result, "还原", dialog: confirm);
+                await ShowResultAsync(result, AppResources.Get("ActionReset"), dialog: confirm);
                 await RefreshAsync();
             }
             finally
@@ -334,10 +360,11 @@ namespace ViVeTool.GUI.ViewModels
         public async Task FullResetAsync()
         {
             var confirmed = await ConfirmAsync(
-                "危险操作",
-                "这将清除所有非系统保护的用户覆盖，把本机全部特性恢复为系统默认状态。\n"
-                + $"目标存储：{DescribeStore()}\n\n此操作不可撤销，确定继续吗？",
-                primaryText: "全部还原");
+                AppResources.Get("DangerTitle"),
+                AppResources.Format("FullResetBodyFormat",
+                    AppResources.Format("TargetStoreFormat", DescribeStore()))
+                    + "\n\n" + AppResources.Get("FullResetIrreversible"),
+                primaryText: AppResources.Get("ActionFullReset"));
 
             if (!confirmed) return;
 
@@ -348,7 +375,7 @@ namespace ViVeTool.GUI.ViewModels
                     _store is StoreTarget.Runtime or StoreTarget.Both,
                     _store is StoreTarget.Boot or StoreTarget.Both));
 
-                await ShowResultAsync(result, "全部还原");
+                await ShowResultAsync(result, AppResources.Get("ActionFullReset"));
                 await RefreshAsync();
             }
             finally
@@ -361,15 +388,15 @@ namespace ViVeTool.GUI.ViewModels
         {
             var performed = await Task.Run(() => FeatureManager.FixLKGStore());
             await ShowMessageAsync(
-                "修复上次正确配置存储",
-                performed ? "已修复损坏的存储头。" : "未发现损坏，无需修复。");
+                AppResources.Get("FixLkgTitle"),
+                performed ? AppResources.Get("FixLkgPerformed") : AppResources.Get("FixLkgNoDamage"));
         }
 
         private string DescribeStore() => _store switch
         {
-            StoreTarget.Runtime => "运行时存储（立即生效）",
-            StoreTarget.Boot => "启动存储（重启后生效）",
-            _ => "运行时 + 启动存储"
+            StoreTarget.Runtime => AppResources.Get("StoreRuntimeText"),
+            StoreTarget.Boot => AppResources.Get("StoreBootText"),
+            _ => AppResources.Get("StoreBothText")
         };
 
         private async Task ShowResultAsync(OperationResult result, string actionName, bool dialog = true)
@@ -379,15 +406,17 @@ namespace ViVeTool.GUI.ViewModels
             Summary = result.Message;
 
             if (result.Success && result.NeedsReboot)
-                Summary += "　·　重启后生效";
+                Summary += AppResources.Get("RebootPendingSuffix");
 
             // 单行操作默认静默，只有出错才打断用户
             if (dialog || !result.Success)
             {
-                var title = result.Success ? $"{actionName}完成" : $"{actionName}失败";
+                var title = result.Success
+                    ? AppResources.Format("OperationDoneTitleFormat", actionName)
+                    : AppResources.Format("OperationFailTitleFormat", actionName);
                 var content = result.Message;
                 if (result.Success && result.NeedsReboot)
-                    content += "\n\n已写入启动存储，重启系统后生效。";
+                    content += "\n\n" + AppResources.Get("BootPendingNotice");
                 await ShowMessageAsync(title, content);
             }
         }
@@ -399,21 +428,21 @@ namespace ViVeTool.GUI.ViewModels
             {
                 Title = title,
                 Content = content,
-                CloseButtonText = "确定",
+                CloseButtonText = AppResources.Get("OK"),
                 XamlRoot = XamlRoot
             };
             await dialog.ShowAsync();
         }
 
-        private async Task<bool> ConfirmAsync(string title, string content, string primaryText = "确定")
+        private async Task<bool> ConfirmAsync(string title, string content, string primaryText = null)
         {
             if (XamlRoot == null) return false;
             var dialog = new ContentDialog
             {
                 Title = title,
                 Content = content,
-                PrimaryButtonText = primaryText,
-                CloseButtonText = "取消",
+                PrimaryButtonText = primaryText ?? AppResources.Get("OK"),
+                CloseButtonText = AppResources.Get("Cancel"),
                 DefaultButton = ContentDialogButton.Close,
                 XamlRoot = XamlRoot
             };

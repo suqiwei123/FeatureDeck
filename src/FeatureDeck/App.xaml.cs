@@ -1,6 +1,7 @@
+using FeatureDeck.Services;
 using Microsoft.UI.Xaml;
 
-namespace ViVeTool.GUI
+namespace FeatureDeck
 {
     public partial class App : Application
     {
@@ -13,6 +14,9 @@ namespace ViVeTool.GUI
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
+            // 启动时确定语言：默认跟随系统，不受支持时回退英文
+            AppResources.InitializeLanguage();
+
             _window = new MainWindow();
             _window.Activate();
         }

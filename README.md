@@ -1,8 +1,12 @@
-# ViVe 图形化工具（ViVeTool.GUI）
+# FeatureDeck
 
-> 本项目 fork 自 [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)，是其 Windows 图形化版本。
+**给 Windows 的隐藏开关装一个控制台。**
 
-查询、启用、禁用、还原 Windows 10/11 的 A/B 特性配置（Feature Staging）。
+Windows 内部藏着几千个通过 A/B 灰度下发的特性开关（Feature Staging）——微软用它们分批推送新界面和新功能，而你在「设置」里永远找不到它们。FeatureDeck 把这 2800+ 条配置摊到一张表上：查得到名字、看得懂含义、改得动状态，改错了还能一键还原。
+
+它是 [ViVe](https://github.com/thebookisclosed/ViVe) 的 WinUI 3 图形界面：沿用原版的内核调用，补上了官方名称字典、搜索筛选、批量操作和一套防误触保护，并修复了原版在 Windows 11 24H2/25H2 上必现的访问违规崩溃。
+
+<small>原名 ViVe 图形化工具（ViVeTool.GUI），fork 自 [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)。</small>
 
 | | |
 |---|---|
@@ -24,6 +28,7 @@
 | 启用 / 禁用 | 单行或批量操作；写入启动存储后自动设置待重启标记 |
 | 还原 | 单条还原用户覆盖；「全部还原」需二次确认 |
 | 保护机制 | 系统镜像管理（Immutable）的条目置灰不可改，防止写入被拒绝 |
+| 中英双语 | 界面自动跟随系统语言（简体中文/英文），无需手动切换 |
 | 启动存储修复 | 一键修复被系统写坏的 Last Known Good 存储 |
 
 ## 系统要求
@@ -38,14 +43,14 @@
 方式二：手动构建
 
 ```bash
-cd src/ViVeTool.GUI
+cd src/FeatureDeck
 dotnet build -c Release -p:Platform=x64
 ```
 
 启动（会弹 UAC 提权确认）：
 
 ```
-src\ViVeTool.GUI\bin\x64\Release\net8.0-windows10.0.19041.0\ViVeTool.GUI.exe
+src\FeatureDeck\bin\x64\Release\net8.0-windows10.0.19041.0\FeatureDeck.exe
 ```
 
 已启用 WindowsAppSDK 自包含部署，**无需预先安装任何运行时**，拷贝输出目录即可绿色运行。
@@ -54,7 +59,7 @@ src\ViVeTool.GUI\bin\x64\Release\net8.0-windows10.0.19041.0\ViVeTool.GUI.exe
 
 ```
 src/
-  ViVeTool.GUI/          主程序（WinUI 3）
+  FeatureDeck/          主程序（WinUI 3）
     Native/              内核层：ntdll P/Invoke、结构体位域、FeatureManager（从 ViVe 移植）
     Services/            服务层：查询合并、字典映射、NTSTATUS 翻译
     Models/              数据模型

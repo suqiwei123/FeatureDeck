@@ -4,9 +4,9 @@ using Albacore.ViVe.NativeStructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ViVeTool.GUI.Models;
+using FeatureDeck.Models;
 
-namespace ViVeTool.GUI.Services
+namespace FeatureDeck.Services
 {
     public class OperationResult
     {
@@ -64,8 +64,8 @@ namespace ViVeTool.GUI.Services
             if (runtimeConfigs == null)
             {
                 result.Error = runtimeError != 0
-                    ? $"读取运行时存储失败：{NtStatus.Describe(runtimeError)}"
-                    : "读取运行时存储失败：未知错误。";
+                    ? AppResources.Format("ReadRuntimeFailFormat", NtStatus.Describe(runtimeError))
+                    : AppResources.Get("ReadUnknownFail");
                 return result;
             }
 
@@ -125,7 +125,8 @@ namespace ViVeTool.GUI.Services
             foreach (var item in map.Values)
             {
                 item.Name = FeatureNaming.GetName(item.FeatureId);
-                item.Category = FeatureCategory.Classify(item.Name);
+                var categoryKey = FeatureCategory.Classify(item.Name);
+                item.Category = categoryKey != null ? AppResources.Get(categoryKey) : null;
             }
 
             result.Items = map.Values
@@ -158,7 +159,9 @@ namespace ViVeTool.GUI.Services
             }).ToArray();
 
             return Apply(updates, writeRuntime, writeBoot,
-                state == RTL_FEATURE_ENABLED_STATE.Enabled ? "启用" : "禁用");
+                state == RTL_FEATURE_ENABLED_STATE.Enabled
+                    ? AppResources.Get("ActionEnable")
+                    : AppResources.Get("ActionDisable"));
         }
 
         public static OperationResult Reset(IEnumerable<FeatureItem> items, bool writeRuntime, bool writeBoot)
@@ -170,7 +173,7 @@ namespace ViVeTool.GUI.Services
                 Operation = RTL_FEATURE_CONFIGURATION_OPERATION.ResetState
             }).ToArray();
 
-            return Apply(updates, writeRuntime, writeBoot, "还原");
+            return Apply(updates, writeRuntime, writeBoot, AppResources.Get("ActionReset"));
         }
 
         public static OperationResult FullReset(bool writeRuntime, bool writeBoot)
@@ -184,9 +187,9 @@ namespace ViVeTool.GUI.Services
                 CollectResettables(RTL_FEATURE_CONFIGURATION_TYPE.Boot, updates, seen);
 
             if (updates.Count == 0)
-                return OperationResult.Ok("没有可还原的条目。");
+                return OperationResult.Ok(AppResources.Get("NoResettable"));
 
-            return Apply(updates.ToArray(), writeRuntime, writeBoot, "全部还原");
+            return Apply(updates.ToArray(), writeRuntime, writeBoot, AppResources.Get("ActionFullReset"));
         }
 
         private static void CollectResettables(
@@ -221,10 +224,10 @@ namespace ViVeTool.GUI.Services
             string actionName)
         {
             if (updates == null || updates.Length == 0)
-                return OperationResult.Fail("没有选中任何条目。");
+                return OperationResult.Fail(AppResources.Get("NoSelection"));
 
             if (!writeRuntime && !writeBoot)
-                return OperationResult.Fail("请至少选择一个目标存储。");
+                return OperationResult.Fail(AppResources.Get("NoStore"));
 
             try
             {
@@ -233,7 +236,8 @@ namespace ViVeTool.GUI.Services
                     var result = FeatureManager.SetFeatureConfigurations(
                         updates, RTL_FEATURE_CONFIGURATION_TYPE.Runtime);
                     if (result != 0)
-                        return OperationResult.Fail($"{actionName}失败（运行时存储）：{NtStatus.Describe(result)}");
+                        return OperationResult.Fail(
+                            AppResources.Format("FailRuntimeFormat", actionName, NtStatus.Describe(result)));
                 }
 
                 if (writeBoot)
@@ -241,22 +245,23 @@ namespace ViVeTool.GUI.Services
                     var result = FeatureManager.SetFeatureConfigurations(
                         updates, RTL_FEATURE_CONFIGURATION_TYPE.Boot);
                     if (result != 0)
-                        return OperationResult.Fail($"{actionName}失败（启动存储）：{NtStatus.Describe(result)}");
+                        return OperationResult.Fail(
+                            AppResources.Format("FailBootFormat", actionName, NtStatus.Describe(result)));
 
                     EnsureBootPending();
                 }
 
                 return OperationResult.Ok(
-                    $"{actionName}成功，共 {updates.Length} 条。",
+                    AppResources.Format("SuccessCountFormat", actionName, updates.Length),
                     needsReboot: writeBoot);
             }
             catch (ArgumentException ex)
             {
-                return OperationResult.Fail($"{actionName}失败：{ex.Message}");
+                return OperationResult.Fail(AppResources.Format("FailGenericFormat", actionName, ex.Message));
             }
             catch (Albacore.ViVe.Exceptions.FeaturePropertyOverflowException ex)
             {
-                return OperationResult.Fail($"{actionName}失败：{ex.Message}");
+                return OperationResult.Fail(AppResources.Format("FailGenericFormat", actionName, ex.Message));
             }
         }
 

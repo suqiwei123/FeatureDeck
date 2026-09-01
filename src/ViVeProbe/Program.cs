@@ -119,7 +119,7 @@ namespace ViVeProbe
             var dir = new DirectoryInfo(AppContext.BaseDirectory);
             for (int i = 0; i < 8 && dir != null; i++, dir = dir.Parent)
             {
-                var candidate = Path.Combine(dir.FullName, "ViVeTool.GUI", "Assets", "FeatureDictionary.pfs");
+                var candidate = Path.Combine(dir.FullName, "FeatureDeck", "Assets", "FeatureDictionary.pfs");
                 if (File.Exists(candidate))
                     return candidate;
             }

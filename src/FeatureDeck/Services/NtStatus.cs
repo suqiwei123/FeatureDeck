@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 
-namespace ViVeTool.GUI.Services
+namespace FeatureDeck.Services
 {
     public static class NtStatus
     {
@@ -25,7 +25,7 @@ namespace ViVeTool.GUI.Services
             }
             catch
             {
-                text = "未知错误";
+                text = AppResources.Get("UnknownError");
             }
             return $"{text} (0x{(uint)ntStatus:X8})";
         }

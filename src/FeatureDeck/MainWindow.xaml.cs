@@ -6,11 +6,12 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
-using ViVeTool.GUI.Models;
-using ViVeTool.GUI.ViewModels;
+using FeatureDeck.Models;
+using FeatureDeck.Services;
+using FeatureDeck.ViewModels;
 using WinRT.Interop;
 
-namespace ViVeTool.GUI
+namespace FeatureDeck
 {
     public sealed partial class MainWindow : Window
     {
@@ -21,7 +22,13 @@ namespace ViVeTool.GUI
         public MainWindow()
         {
             InitializeComponent();
-            Title = "ViVe 图形化工具";
+            Title = AppResources.Get("AppTitle");
+
+            // RadioButtons 子项不支持 x:Uid，用资源填充
+            StoreSelector.Items.Add(AppResources.Get("StoreRuntime"));
+            StoreSelector.Items.Add(AppResources.Get("StoreBoot"));
+            StoreSelector.Items.Add(AppResources.Get("StoreBoth"));
+
             Root.Loaded += OnLoaded;
         }
 
@@ -33,8 +40,10 @@ namespace ViVeTool.GUI
 
             if (!ViewModel.IsBuildSupported)
             {
-                await ShowDialogAsync("系统版本不受支持",
-                    $"ViVe 需要 Windows 10 build 18963 或更新的版本。\n当前内部版本：{ViewModel.BuildNumber}");
+                await ShowDialogAsync(
+                    AppResources.Get("UnsupportedTitle"),
+                    AppResources.Format("UnsupportedMessageFormat",
+                        AppResources.Format("CurrentBuildFormat", ViewModel.BuildNumber)));
                 return;
             }
 
@@ -136,7 +145,7 @@ namespace ViVeTool.GUI
             {
                 Title = title,
                 Content = content,
-                CloseButtonText = "确定",
+                CloseButtonText = AppResources.Get("OK"),
                 XamlRoot = Content.XamlRoot
             };
             await dialog.ShowAsync();

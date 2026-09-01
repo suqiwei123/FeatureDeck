@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace ViVeTool.GUI.Services
+namespace FeatureDeck.Services
 {
     public static class FeatureNaming
     {

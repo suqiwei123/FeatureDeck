@@ -1,7 +1,7 @@
 @echo off
-rem One-click build and launch for ViVeTool.GUI
+rem One-click build and launch for FeatureDeck
 setlocal
-cd /d "%~dp0src\ViVeTool.GUI"
+cd /d "%~dp0src\FeatureDeck"
 
 where dotnet >nul 2>nul
 if errorlevel 1 (
@@ -21,5 +21,5 @@ if errorlevel 1 (
 set OUT=bin\x64\Release\net8.0-windows10.0.19041.0
 echo Build succeeded.
 echo Launching (requires administrator privileges, UAC prompt will appear)...
-start "" "%OUT%\ViVeTool.GUI.exe"
+start "" "%OUT%\FeatureDeck.exe"
 exit /b 0

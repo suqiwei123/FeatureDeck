@@ -1,12 +1,12 @@
 <Window
-    x:Class="ViVeTool.GUI.MainWindow"
+    x:Class="FeatureDeck.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:ViVeTool.GUI.Models"
+    xmlns:models="using:FeatureDeck.Models"
     mc:Ignorable="d"
-    Title="ViVe 图形化工具">
+    Title="FeatureDeck">
 
     <Grid x:Name="Root" Padding="16,12,16,0" DataContext="{x:Bind ViewModel, Mode=OneTime}">
         <Grid.RowDefinitions>
@@ -32,25 +32,21 @@
                     VerticalAlignment="Bottom">
                 <StackPanel Orientation="Horizontal" Spacing="6">
                     <FontIcon Glyph="&#xE72C;" FontSize="14" />
-                    <TextBlock Text="刷新" />
+                    <TextBlock x:Uid="RefreshButton" />
                 </StackPanel>
             </Button>
 
             <RadioButtons x:Name="StoreSelector"
+                          x:Uid="StoreSelector"
                           Grid.Column="1"
-                          Header="目标存储"
                           MaxColumns="3"
                           SelectedIndex="0"
                           SelectionChanged="StoreSelector_SelectionChanged"
-                          VerticalAlignment="Bottom">
-                <x:String>运行时</x:String>
-                <x:String>启动时</x:String>
-                <x:String>两者</x:String>
-            </RadioButtons>
+                          VerticalAlignment="Bottom" />
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="8" VerticalAlignment="Bottom">
-                <Button Content="全部还原" Click="FullResetButton_Click" />
-                <Button Content="修复启动存储" Click="FixLkgButton_Click" ToolTipService.ToolTip="修复被系统写坏的 Last Known Good 存储头" />
+                <Button x:Uid="FullResetButton" Click="FullResetButton_Click" />
+                <Button x:Uid="FixLkgButton" Click="FixLkgButton_Click" />
             </StackPanel>
         </Grid>
 
@@ -65,8 +61,8 @@
             </Grid.ColumnDefinitions>
 
             <AutoSuggestBox x:Name="SearchBox"
+                            x:Uid="SearchBox"
                             Grid.Column="0"
-                            PlaceholderText="搜索特性名称或 ID"
                             QueryIcon="Find"
                             TextChanged="SearchBox_TextChanged"
                             VerticalAlignment="Center" />
@@ -76,27 +72,26 @@
                       SelectedIndex="0"
                       SelectionChanged="FilterBox_SelectionChanged"
                       VerticalAlignment="Center">
-                <ComboBoxItem Content="全部特性" />
-                <ComboBoxItem Content="仅被改过的" />
-                <ComboBoxItem Content="仅可修改的" />
-                <ComboBoxItem Content="仅实验配置" />
-                <ComboBoxItem Content="仅有订阅的" />
+                <ComboBoxItem x:Uid="FilterAll" />
+                <ComboBoxItem x:Uid="FilterModified" />
+                <ComboBoxItem x:Uid="FilterEditable" />
+                <ComboBoxItem x:Uid="FilterExperimental" />
+                <ComboBoxItem x:Uid="FilterSubscribed" />
             </ComboBox>
 
-            <Button Grid.Column="2" Content="启用" Click="EnableButton_Click"
+            <Button Grid.Column="2" x:Uid="EnableButton" Click="EnableButton_Click"
                     IsEnabled="{x:Bind ViewModel.HasSelection, Mode=OneWay}" VerticalAlignment="Center" />
-            <Button Grid.Column="3" Content="禁用" Click="DisableButton_Click"
+            <Button Grid.Column="3" x:Uid="DisableButton" Click="DisableButton_Click"
                     IsEnabled="{x:Bind ViewModel.HasSelection, Mode=OneWay}" VerticalAlignment="Center" />
-            <Button Grid.Column="4" Content="还原" Click="ResetButton_Click"
+            <Button Grid.Column="4" x:Uid="ResetButton" Click="ResetButton_Click"
                     IsEnabled="{x:Bind ViewModel.HasSelection, Mode=OneWay}" VerticalAlignment="Center" />
 
             <TextBlock Grid.Column="5"
+                       Text="{x:Bind ViewModel.SelectedCountText, Mode=OneWay}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
                        Opacity="0.7"
-                       FontSize="12">
-                <Run Text="已选 " /><Run Text="{x:Bind ViewModel.SelectedCount, Mode=OneWay}" /><Run Text=" 项（可多选，Ctrl/Shift 加选）" />
-            </TextBlock>
+                       FontSize="12" />
         </Grid>
 
         <Grid Grid.Row="2" Padding="12,6,16,6" BorderThickness="0,0,0,1"
@@ -111,14 +106,14 @@
                 <ColumnDefinition Width="72" />
                 <ColumnDefinition Width="204" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="ID" FontWeight="SemiBold" FontSize="12" />
-            <TextBlock Grid.Column="1" Text="名称" FontWeight="SemiBold" FontSize="12" />
-            <TextBlock Grid.Column="2" Text="优先级" FontWeight="SemiBold" FontSize="12" />
-            <TextBlock Grid.Column="3" Text="运行时" FontWeight="SemiBold" FontSize="12" />
-            <TextBlock Grid.Column="4" Text="启动时" FontWeight="SemiBold" FontSize="12" />
-            <TextBlock Grid.Column="5" Text="类型" FontWeight="SemiBold" FontSize="12" />
-            <TextBlock Grid.Column="6" Text="变体" FontWeight="SemiBold" FontSize="12" />
-            <TextBlock Grid.Column="7" Text="操作" FontWeight="SemiBold" FontSize="12" />
+            <TextBlock Grid.Column="0" x:Uid="ColId" FontWeight="SemiBold" FontSize="12" />
+            <TextBlock Grid.Column="1" x:Uid="ColName" FontWeight="SemiBold" FontSize="12" />
+            <TextBlock Grid.Column="2" x:Uid="ColPriority" FontWeight="SemiBold" FontSize="12" />
+            <TextBlock Grid.Column="3" x:Uid="ColRuntime" FontWeight="SemiBold" FontSize="12" />
+            <TextBlock Grid.Column="4" x:Uid="ColBoot" FontWeight="SemiBold" FontSize="12" />
+            <TextBlock Grid.Column="5" x:Uid="ColType" FontWeight="SemiBold" FontSize="12" />
+            <TextBlock Grid.Column="6" x:Uid="ColVariant" FontWeight="SemiBold" FontSize="12" />
+            <TextBlock Grid.Column="7" x:Uid="ColActions" FontWeight="SemiBold" FontSize="12" />
         </Grid>
 
         <ListView x:Name="FeatureList"
@@ -166,17 +161,17 @@
                             <Border Background="{ThemeResource SystemFillColorNeutralBackgroundBrush}"
                                     CornerRadius="3" Padding="4,1"
                                     Visibility="{Binding HasName, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
-                                <TextBlock Text="未命名" FontSize="10" Opacity="0.6" />
+                                <TextBlock x:Uid="UnnamedLabel" FontSize="10" Opacity="0.6" />
                             </Border>
                             <Border Background="{ThemeResource SystemFillColorCautionBackgroundBrush}"
                                     CornerRadius="3" Padding="4,1"
                                     Visibility="{Binding IsImmutable, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <TextBlock Text="受保护" FontSize="10" />
+                                <TextBlock x:Uid="ProtectedLabel" FontSize="10" />
                             </Border>
                             <Border Background="{ThemeResource SystemFillColorSuccessBackgroundBrush}"
                                     CornerRadius="3" Padding="4,1"
                                     Visibility="{Binding HasSubscriptions, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <TextBlock Text="订阅" FontSize="10" />
+                                <TextBlock x:Uid="SubscribedLabel" FontSize="10" />
                             </Border>
                         </StackPanel>
 
@@ -196,13 +191,13 @@
 
                         <StackPanel Grid.Column="7" Orientation="Horizontal" Spacing="4"
                                     VerticalAlignment="Center">
-                            <Button Content="启用" FontSize="12" Padding="8,2"
+                            <Button x:Uid="RowEnable" FontSize="12" Padding="8,2"
                                     Tag="{x:Bind}" Click="RowEnable_Click"
                                     IsEnabled="{x:Bind CanEdit, Mode=OneWay}" />
-                            <Button Content="禁用" FontSize="12" Padding="8,2"
+                            <Button x:Uid="RowDisable" FontSize="12" Padding="8,2"
                                     Tag="{x:Bind}" Click="RowDisable_Click"
                                     IsEnabled="{x:Bind CanEdit, Mode=OneWay}" />
-                            <Button Content="还原" FontSize="12" Padding="8,2"
+                            <Button x:Uid="RowReset" FontSize="12" Padding="8,2"
                                     Tag="{x:Bind}" Click="RowReset_Click"
                                     IsEnabled="{x:Bind CanEdit, Mode=OneWay}" />
                         </StackPanel>
@@ -212,8 +207,8 @@
         </ListView>
 
         <TextBlock x:Name="EmptyHint"
+                   x:Uid="EmptyHint"
                    Grid.Row="3"
-                   Text="没有匹配的特性。试试换个关键词，或切换目标存储。"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Opacity="0.6"
@@ -237,11 +232,10 @@
                        VerticalAlignment="Center"
                        TextTrimming="CharacterEllipsis" />
             <TextBlock Grid.Column="1"
+                       Text="{x:Bind ViewModel.BuildVersionText, Mode=OneWay}"
                        FontSize="12"
                        Opacity="0.55"
-                       VerticalAlignment="Center">
-                <Run Text="Windows 内部版本 " /><Run Text="{x:Bind ViewModel.BuildNumber, Mode=OneWay}" />
-            </TextBlock>
+                       VerticalAlignment="Center" />
         </Grid>
     </Grid>
 </Window>

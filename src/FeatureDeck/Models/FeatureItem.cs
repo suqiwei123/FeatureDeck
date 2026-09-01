@@ -1,6 +1,7 @@
 using Albacore.ViVe.NativeEnums;
+using FeatureDeck.Services;
 
-namespace ViVeTool.GUI.Models
+namespace FeatureDeck.Models
 {
     public class FeatureItem
     {
@@ -8,7 +9,7 @@ namespace ViVeTool.GUI.Models
         public string Name { get; set; }
         public string Category { get; set; }
         public bool HasName => !string.IsNullOrEmpty(Name);
-        public string DisplayName => HasName ? Name : $"未命名特性 #{FeatureId}";
+        public string DisplayName => HasName ? Name : AppResources.Format("UnnamedFeatureFormat", FeatureId);
         public string IdText => FeatureId.ToString();
         public bool HasCategory => !string.IsNullOrEmpty(Category);
 
@@ -29,7 +30,9 @@ namespace ViVeTool.GUI.Models
 
         public string RuntimeStateText => ExistsInRuntime ? Translate(RuntimeState) : "-";
         public string BootStateText => ExistsInBoot ? Translate(BootState) : "-";
-        public string TypeText => IsWexpConfiguration ? "实验" : "覆盖";
+        public string TypeText => IsWexpConfiguration
+            ? AppResources.Get("TypeExperimental")
+            : AppResources.Get("TypeOverride");
         public string VariantText => Variant == 0 ? "-" : Variant.ToString();
 
         // 用户或测试级别写入过的条目才算是"被改过"，用于快速定位
@@ -43,9 +46,9 @@ namespace ViVeTool.GUI.Models
 
         private static string Translate(RTL_FEATURE_ENABLED_STATE state) => state switch
         {
-            RTL_FEATURE_ENABLED_STATE.Enabled => "已启用",
-            RTL_FEATURE_ENABLED_STATE.Disabled => "已禁用",
-            _ => "默认"
+            RTL_FEATURE_ENABLED_STATE.Enabled => AppResources.Get("StateEnabled"),
+            RTL_FEATURE_ENABLED_STATE.Disabled => AppResources.Get("StateDisabled"),
+            _ => AppResources.Get("StateDefault")
         };
 
         public string SearchableText => string.IsNullOrEmpty(Name) ? FeatureId.ToString() : $"{Name} {FeatureId}";

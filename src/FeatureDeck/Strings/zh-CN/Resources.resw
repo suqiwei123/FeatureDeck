@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="ActionDisable" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="ActionEnable" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="ActionFullReset" xml:space="preserve">
+    <value>全部还原</value>
+  </data>
+  <data name="ActionReset" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>FeatureDeck - ViVe 图形化工具</value>
+  </data>
+  <data name="BootPendingNotice" xml:space="preserve">
+    <value>已写入启动存储，重启系统后生效。</value>
+  </data>
+  <data name="BootRebootNotice" xml:space="preserve">
+    <value>写入启动存储后需要重启系统才会生效。</value>
+  </data>
+  <data name="BootUnavailableSuffix" xml:space="preserve">
+    <value>　·　启动存储暂不可用</value>
+  </data>
+  <data name="BuildVersionPrefix" xml:space="preserve">
+    <value>Windows 内部版本</value>
+  </data>
+  <data name="CannotModifyMessage" xml:space="preserve">
+    <value>选中的条目由系统镜像管理，不允许修改。</value>
+  </data>
+  <data name="CannotOperateTitle" xml:space="preserve">
+    <value>无法操作</value>
+  </data>
+  <data name="CatAI" xml:space="preserve">
+    <value>AI/Copilot</value>
+  </data>
+  <data name="CatAccessibility" xml:space="preserve">
+    <value>辅助功能</value>
+  </data>
+  <data name="CatApps" xml:space="preserve">
+    <value>内置应用</value>
+  </data>
+  <data name="CatAudio" xml:space="preserve">
+    <value>音频</value>
+  </data>
+  <data name="CatBrowser" xml:space="preserve">
+    <value>浏览器</value>
+  </data>
+  <data name="CatCamera" xml:space="preserve">
+    <value>摄像头/截图</value>
+  </data>
+  <data name="CatDesktop" xml:space="preserve">
+    <value>桌面/锁屏</value>
+  </data>
+  <data name="CatExplorer" xml:space="preserve">
+    <value>文件资源管理器</value>
+  </data>
+  <data name="CatFilesystem" xml:space="preserve">
+    <value>文件系统/存储</value>
+  </data>
+  <data name="CatGaming" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="CatInput" xml:space="preserve">
+    <value>输入/字体</value>
+  </data>
+  <data name="CatNetwork" xml:space="preserve">
+    <value>网络</value>
+  </data>
+  <data name="CatPhone" xml:space="preserve">
+    <value>手机连接</value>
+  </data>
+  <data name="CatPower" xml:space="preserve">
+    <value>电源/电池</value>
+  </data>
+  <data name="CatPrint" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="CatSearch" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="CatSecurity" xml:space="preserve">
+    <value>安全</value>
+  </data>
+  <data name="CatSettings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="CatStartMenu" xml:space="preserve">
+    <value>开始菜单</value>
+  </data>
+  <data name="CatStore" xml:space="preserve">
+    <value>应用商店</value>
+  </data>
+  <data name="CatTaskbar" xml:space="preserve">
+    <value>任务栏</value>
+  </data>
+  <data name="CatUpdate" xml:space="preserve">
+    <value>系统更新/维护</value>
+  </data>
+  <data name="CatVirtual" xml:space="preserve">
+    <value>虚拟化/WSL</value>
+  </data>
+  <data name="CatWidgets" xml:space="preserve">
+    <value>小组件</value>
+  </data>
+  <data name="CatWindowing" xml:space="preserve">
+    <value>窗口管理</value>
+  </data>
+  <data name="ColActions.Text" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="ColBoot.Text" xml:space="preserve">
+    <value>启动时</value>
+  </data>
+  <data name="ColId.Text" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ColName.Text" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="ColPriority.Text" xml:space="preserve">
+    <value>优先级</value>
+  </data>
+  <data name="ColRuntime.Text" xml:space="preserve">
+    <value>运行时</value>
+  </data>
+  <data name="ColType.Text" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="ColVariant.Text" xml:space="preserve">
+    <value>变体</value>
+  </data>
+  <data name="ConfirmBodyDisableFormat" xml:space="preserve">
+    <value>将对 {0} 条特性执行「{1}」，目标存储：{2}。</value>
+  </data>
+  <data name="ConfirmBodyEnableFormat" xml:space="preserve">
+    <value>将对 {0} 条特性执行「{1}」，目标存储：{2}。</value>
+  </data>
+  <data name="ConfirmBodyResetFormat" xml:space="preserve">
+    <value>将清除 {0} 条特性的用户覆盖，恢复系统默认状态。{1}</value>
+  </data>
+  <data name="ConfirmTitleFormat" xml:space="preserve">
+    <value>确认{0}</value>
+  </data>
+  <data name="CurrentBuildFormat" xml:space="preserve">
+    <value>当前内部版本：{0}</value>
+  </data>
+  <data name="DangerTitle" xml:space="preserve">
+    <value>危险操作</value>
+  </data>
+  <data name="DisableButton.Content" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="EmptyHint.Text" xml:space="preserve">
+    <value>没有匹配的特性。试试换个关键词，或切换目标存储。</value>
+  </data>
+  <data name="EnableButton.Content" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="FailBootFormat" xml:space="preserve">
+    <value>{0}失败（启动存储）：{1}</value>
+  </data>
+  <data name="FailGenericFormat" xml:space="preserve">
+    <value>{0}失败：{1}</value>
+  </data>
+  <data name="FailRuntimeFormat" xml:space="preserve">
+    <value>{0}失败（运行时存储）：{1}</value>
+  </data>
+  <data name="FilterAll.Content" xml:space="preserve">
+    <value>全部特性</value>
+  </data>
+  <data name="FilterEditable.Content" xml:space="preserve">
+    <value>仅可修改的</value>
+  </data>
+  <data name="FilterExperimental.Content" xml:space="preserve">
+    <value>仅实验配置</value>
+  </data>
+  <data name="FilterModified.Content" xml:space="preserve">
+    <value>仅被改过的</value>
+  </data>
+  <data name="FilterSubscribed.Content" xml:space="preserve">
+    <value>仅有订阅的</value>
+  </data>
+  <data name="FixLkgButton.Content" xml:space="preserve">
+    <value>修复启动存储</value>
+  </data>
+  <data name="FixLkgButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>修复被系统写坏的 Last Known Good 存储头</value>
+  </data>
+  <data name="FixLkgNoDamage" xml:space="preserve">
+    <value>未发现损坏，无需修复。</value>
+  </data>
+  <data name="FixLkgPerformed" xml:space="preserve">
+    <value>已修复损坏的存储头。</value>
+  </data>
+  <data name="FixLkgTitle" xml:space="preserve">
+    <value>修复上次正确配置存储</value>
+  </data>
+  <data name="FullResetBodyFormat" xml:space="preserve">
+    <value>这将清除所有非系统保护的用户覆盖，把本机全部特性恢复为系统默认状态。{0}</value>
+  </data>
+  <data name="FullResetButton.Content" xml:space="preserve">
+    <value>全部还原</value>
+  </data>
+  <data name="FullResetIrreversible" xml:space="preserve">
+    <value>此操作不可撤销，确定继续吗？</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>正在读取特性配置…</value>
+  </data>
+  <data name="NoDictionarySuffix" xml:space="preserve">
+    <value>（未找到名称字典，仅显示 ID）</value>
+  </data>
+  <data name="NoResettable" xml:space="preserve">
+    <value>没有可还原的条目。</value>
+  </data>
+  <data name="NoSelection" xml:space="preserve">
+    <value>没有选中任何条目。</value>
+  </data>
+  <data name="NoStore" xml:space="preserve">
+    <value>请至少选择一个目标存储。</value>
+  </data>
+  <data name="OperationDoneTitleFormat" xml:space="preserve">
+    <value>{0}完成</value>
+  </data>
+  <data name="OperationFailTitleFormat" xml:space="preserve">
+    <value>{0}失败</value>
+  </data>
+  <data name="ProtectedLabel.Text" xml:space="preserve">
+    <value>受保护</value>
+  </data>
+  <data name="ReadFailedMessageFormat" xml:space="preserve">
+    <value>读取本机特性配置时出现异常：{0}</value>
+  </data>
+  <data name="ReadFailedTitle" xml:space="preserve">
+    <value>读取失败</value>
+  </data>
+  <data name="ReadRuntimeFailFormat" xml:space="preserve">
+    <value>读取运行时存储失败：{0}</value>
+  </data>
+  <data name="ReadUnknownFail" xml:space="preserve">
+    <value>读取运行时存储失败：未知错误。</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>准备就绪</value>
+  </data>
+  <data name="RefreshButton.Content" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="RefreshButton.Text" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="ResetButton.Content" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="RowDisable.Content" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="RowEnable.Content" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="RowReset.Content" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="SearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索特性名称或 ID</value>
+  </data>
+  <data name="SelectedPrefix" xml:space="preserve">
+    <value>已选</value>
+  </data>
+  <data name="SelectedSuffix" xml:space="preserve">
+    <value>项（可多选，Ctrl/Shift 加选）</value>
+  </data>
+  <data name="SkippedSuffixFormat" xml:space="preserve">
+    <value>另有 {0} 条为系统受保护条目，将被跳过。</value>
+  </data>
+  <data name="StateDefault" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="StateDisabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="StateEnabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="StoreBoot" xml:space="preserve">
+    <value>启动时</value>
+  </data>
+  <data name="StoreBootText" xml:space="preserve">
+    <value>启动存储（重启后生效）</value>
+  </data>
+  <data name="StoreBoth" xml:space="preserve">
+    <value>两者</value>
+  </data>
+  <data name="StoreBothText" xml:space="preserve">
+    <value>运行时 + 启动存储</value>
+  </data>
+  <data name="StoreSelector.Header" xml:space="preserve">
+    <value>目标存储</value>
+  </data>
+  <data name="StoreRuntime" xml:space="preserve">
+    <value>运行时</value>
+  </data>
+  <data name="StoreRuntimeText" xml:space="preserve">
+    <value>运行时存储（立即生效）</value>
+  </data>
+  <data name="SubscribedLabel.Text" xml:space="preserve">
+    <value>订阅</value>
+  </data>
+  <data name="SuccessCountFormat" xml:space="preserve">
+    <value>{0}成功，共 {1} 条。</value>
+  </data>
+  <data name="SummaryFormat" xml:space="preserve">
+    <value>共 {0} 条，已命名 {1} 条（{2}）　·　字典 {3} 条　·　内部版本 {4}</value>
+  </data>
+  <data name="TargetStoreFormat" xml:space="preserve">
+    <value>目标存储：{0}</value>
+  </data>
+  <data name="TypeExperimental" xml:space="preserve">
+    <value>实验</value>
+  </data>
+  <data name="TypeOverride" xml:space="preserve">
+    <value>覆盖</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>未知错误</value>
+  </data>
+  <data name="UnnamedFeatureFormat" xml:space="preserve">
+    <value>未命名特性 #{0}</value>
+  </data>
+  <data name="UnnamedLabel.Text" xml:space="preserve">
+    <value>未命名</value>
+  </data>
+  <data name="UnsupportedMessageFormat" xml:space="preserve">
+    <value>FeatureDeck 需要 Windows 10 build 18963 或更新的版本。{0}</value>
+  </data>
+  <data name="UnsupportedTitle" xml:space="preserve">
+    <value>系统版本不受支持</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="SummaryFilterFormat" xml:space="preserve">
+    <value>共 {0} 条，当前显示 {1} 条</value>
+  </data>
+  <data name="RebootPendingSuffix" xml:space="preserve">
+    <value>　·　重启后生效</value>
+  </data>
+  <data name="ReadErrorPrefixFormat" xml:space="preserve">
+    <value>读取特性配置时发生错误：{0}</value>
+  </data>
+</root>

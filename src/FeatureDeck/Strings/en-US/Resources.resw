@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="ActionDisable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="ActionEnable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="ActionFullReset" xml:space="preserve">
+    <value>Reset All</value>
+  </data>
+  <data name="ActionReset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>FeatureDeck - ViVe GUI Tool</value>
+  </data>
+  <data name="BootPendingNotice" xml:space="preserve">
+    <value>Written to the boot store; restart the system to apply.</value>
+  </data>
+  <data name="BootRebootNotice" xml:space="preserve">
+    <value>Boot store changes require a system restart to take effect.</value>
+  </data>
+  <data name="BootUnavailableSuffix" xml:space="preserve">
+    <value> - boot store unavailable</value>
+  </data>
+  <data name="BuildVersionPrefix" xml:space="preserve">
+    <value>Windows build </value>
+  </data>
+  <data name="CannotModifyMessage" xml:space="preserve">
+    <value>Selected items are managed by the system image and cannot be modified.</value>
+  </data>
+  <data name="CannotOperateTitle" xml:space="preserve">
+    <value>Cannot Operate</value>
+  </data>
+  <data name="CatAI" xml:space="preserve">
+    <value>AI/Copilot</value>
+  </data>
+  <data name="CatAccessibility" xml:space="preserve">
+    <value>Accessibility</value>
+  </data>
+  <data name="CatApps" xml:space="preserve">
+    <value>Built-in Apps</value>
+  </data>
+  <data name="CatAudio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="CatBrowser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="CatCamera" xml:space="preserve">
+    <value>Camera/Screenshots</value>
+  </data>
+  <data name="CatDesktop" xml:space="preserve">
+    <value>Desktop/Lock Screen</value>
+  </data>
+  <data name="CatExplorer" xml:space="preserve">
+    <value>File Explorer</value>
+  </data>
+  <data name="CatFilesystem" xml:space="preserve">
+    <value>File System/Storage</value>
+  </data>
+  <data name="CatGaming" xml:space="preserve">
+    <value>Gaming</value>
+  </data>
+  <data name="CatInput" xml:space="preserve">
+    <value>Input/Fonts</value>
+  </data>
+  <data name="CatNetwork" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="CatPhone" xml:space="preserve">
+    <value>Phone Link</value>
+  </data>
+  <data name="CatPower" xml:space="preserve">
+    <value>Power/Battery</value>
+  </data>
+  <data name="CatPrint" xml:space="preserve">
+    <value>Printing</value>
+  </data>
+  <data name="CatSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="CatSecurity" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="CatSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="CatStartMenu" xml:space="preserve">
+    <value>Start Menu</value>
+  </data>
+  <data name="CatStore" xml:space="preserve">
+    <value>App Store</value>
+  </data>
+  <data name="CatTaskbar" xml:space="preserve">
+    <value>Taskbar</value>
+  </data>
+  <data name="CatUpdate" xml:space="preserve">
+    <value>Updates/Maintenance</value>
+  </data>
+  <data name="CatVirtual" xml:space="preserve">
+    <value>Virtualization/WSL</value>
+  </data>
+  <data name="CatWidgets" xml:space="preserve">
+    <value>Widgets</value>
+  </data>
+  <data name="CatWindowing" xml:space="preserve">
+    <value>Windowing</value>
+  </data>
+  <data name="ColActions.Text" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ColBoot.Text" xml:space="preserve">
+    <value>Boot</value>
+  </data>
+  <data name="ColId.Text" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ColName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ColPriority.Text" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="ColRuntime.Text" xml:space="preserve">
+    <value>Runtime</value>
+  </data>
+  <data name="ColType.Text" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ColVariant.Text" xml:space="preserve">
+    <value>Variant</value>
+  </data>
+  <data name="ConfirmBodyDisableFormat" xml:space="preserve">
+    <value>Disable {0} feature(s) in the {1} store.</value>
+  </data>
+  <data name="ConfirmBodyEnableFormat" xml:space="preserve">
+    <value>Enable {0} feature(s) in the {1} store.</value>
+  </data>
+  <data name="ConfirmBodyResetFormat" xml:space="preserve">
+    <value>This will clear user overrides for {0} feature(s) and restore system defaults. {1}</value>
+  </data>
+  <data name="ConfirmTitleFormat" xml:space="preserve">
+    <value>Confirm {0}</value>
+  </data>
+  <data name="CurrentBuildFormat" xml:space="preserve">
+    <value>Current build: {0}</value>
+  </data>
+  <data name="DangerTitle" xml:space="preserve">
+    <value>Dangerous Operation</value>
+  </data>
+  <data name="DisableButton.Content" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="EmptyHint.Text" xml:space="preserve">
+    <value>No matching features. Try another keyword, or switch the target store.</value>
+  </data>
+  <data name="EnableButton.Content" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="FailBootFormat" xml:space="preserve">
+    <value>{0} failed (boot store): {1}</value>
+  </data>
+  <data name="FailGenericFormat" xml:space="preserve">
+    <value>{0} failed: {1}</value>
+  </data>
+  <data name="FailRuntimeFormat" xml:space="preserve">
+    <value>{0} failed (runtime store): {1}</value>
+  </data>
+  <data name="FilterAll.Content" xml:space="preserve">
+    <value>All features</value>
+  </data>
+  <data name="FilterEditable.Content" xml:space="preserve">
+    <value>Editable only</value>
+  </data>
+  <data name="FilterExperimental.Content" xml:space="preserve">
+    <value>Experimental only</value>
+  </data>
+  <data name="FilterModified.Content" xml:space="preserve">
+    <value>Modified only</value>
+  </data>
+  <data name="FilterSubscribed.Content" xml:space="preserve">
+    <value>Subscribed only</value>
+  </data>
+  <data name="FixLkgButton.Content" xml:space="preserve">
+    <value>Fix Boot Store</value>
+  </data>
+  <data name="FixLkgButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Repair a Last Known Good store header corrupted by the system</value>
+  </data>
+  <data name="FixLkgNoDamage" xml:space="preserve">
+    <value>No corruption found; nothing to repair.</value>
+  </data>
+  <data name="FixLkgPerformed" xml:space="preserve">
+    <value>Corrupted store header repaired.</value>
+  </data>
+  <data name="FixLkgTitle" xml:space="preserve">
+    <value>Repair Last Known Good Store</value>
+  </data>
+  <data name="FullResetBodyFormat" xml:space="preserve">
+    <value>This will clear all non-protected user overrides and restore every feature to system defaults. {0}</value>
+  </data>
+  <data name="FullResetButton.Content" xml:space="preserve">
+    <value>Reset All</value>
+  </data>
+  <data name="FullResetIrreversible" xml:space="preserve">
+    <value>This cannot be undone. Continue?</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Reading feature configurations...</value>
+  </data>
+  <data name="NoDictionarySuffix" xml:space="preserve">
+    <value> (feature name dictionary not found; showing IDs only)</value>
+  </data>
+  <data name="NoResettable" xml:space="preserve">
+    <value>No resettable items.</value>
+  </data>
+  <data name="NoSelection" xml:space="preserve">
+    <value>No items selected.</value>
+  </data>
+  <data name="NoStore" xml:space="preserve">
+    <value>Please select at least one target store.</value>
+  </data>
+  <data name="OperationDoneTitleFormat" xml:space="preserve">
+    <value>{0} Completed</value>
+  </data>
+  <data name="OperationFailTitleFormat" xml:space="preserve">
+    <value>{0} Failed</value>
+  </data>
+  <data name="ProtectedLabel.Text" xml:space="preserve">
+    <value>Protected</value>
+  </data>
+  <data name="ReadFailedMessageFormat" xml:space="preserve">
+    <value>An exception occurred while reading feature configurations: {0}</value>
+  </data>
+  <data name="ReadFailedTitle" xml:space="preserve">
+    <value>Read Failed</value>
+  </data>
+  <data name="ReadRuntimeFailFormat" xml:space="preserve">
+    <value>Failed to read runtime store: {0}</value>
+  </data>
+  <data name="ReadUnknownFail" xml:space="preserve">
+    <value>Failed to read runtime store: unknown error.</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="RefreshButton.Content" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="RefreshButton.Text" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="ResetButton.Content" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="RowDisable.Content" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="RowEnable.Content" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="RowReset.Content" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="SearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search feature name or ID</value>
+  </data>
+  <data name="SelectedPrefix" xml:space="preserve">
+    <value>Selected </value>
+  </data>
+  <data name="SelectedSuffix" xml:space="preserve">
+    <value> item(s) (multi-select with Ctrl/Shift)</value>
+  </data>
+  <data name="SkippedSuffixFormat" xml:space="preserve">
+    <value>{0} system-protected item(s) will be skipped.</value>
+  </data>
+  <data name="StateDefault" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="StateDisabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="StateEnabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="StoreBoot" xml:space="preserve">
+    <value>Boot</value>
+  </data>
+  <data name="StoreBootText" xml:space="preserve">
+    <value>Boot store (applies after restart)</value>
+  </data>
+  <data name="StoreBoth" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="StoreBothText" xml:space="preserve">
+    <value>Runtime + Boot store</value>
+  </data>
+  <data name="StoreSelector.Header" xml:space="preserve">
+    <value>Target Store</value>
+  </data>
+  <data name="StoreRuntime" xml:space="preserve">
+    <value>Runtime</value>
+  </data>
+  <data name="StoreRuntimeText" xml:space="preserve">
+    <value>Runtime store (applies immediately)</value>
+  </data>
+  <data name="SubscribedLabel.Text" xml:space="preserve">
+    <value>Subscribed</value>
+  </data>
+  <data name="SuccessCountFormat" xml:space="preserve">
+    <value>{0} succeeded on {1} item(s).</value>
+  </data>
+  <data name="SummaryFormat" xml:space="preserve">
+    <value>{0} items, {1} named ({2})  -  dict {3} entries  -  build {4}</value>
+  </data>
+  <data name="TargetStoreFormat" xml:space="preserve">
+    <value>Target store: {0}</value>
+  </data>
+  <data name="TypeExperimental" xml:space="preserve">
+    <value>Experimental</value>
+  </data>
+  <data name="TypeOverride" xml:space="preserve">
+    <value>Override</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Unknown error</value>
+  </data>
+  <data name="UnnamedFeatureFormat" xml:space="preserve">
+    <value>Unnamed feature #{0}</value>
+  </data>
+  <data name="UnnamedLabel.Text" xml:space="preserve">
+    <value>Unnamed</value>
+  </data>
+  <data name="UnsupportedMessageFormat" xml:space="preserve">
+    <value>FeatureDeck requires Windows 10 build 18963 or newer. {0}</value>
+  </data>
+  <data name="UnsupportedTitle" xml:space="preserve">
+    <value>Unsupported OS Version</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SummaryFilterFormat" xml:space="preserve">
+    <value>{0} items, showing {1}</value>
+  </data>
+  <data name="RebootPendingSuffix" xml:space="preserve">
+    <value> - restart required</value>
+  </data>
+  <data name="ReadErrorPrefixFormat" xml:space="preserve">
+    <value>Error reading feature configurations: {0}</value>
+  </data>
+</root>

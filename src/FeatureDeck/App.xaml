@@ -1,9 +1,9 @@
 <Application
-    x:Class="ViVeTool.GUI.App"
+    x:Class="FeatureDeck.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ViVeTool.GUI"
-    xmlns:converters="using:ViVeTool.GUI.Converters">
+    xmlns:local="using:FeatureDeck"
+    xmlns:converters="using:FeatureDeck.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

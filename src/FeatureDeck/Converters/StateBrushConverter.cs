@@ -3,7 +3,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using System;
 
-namespace ViVeTool.GUI.Converters
+namespace FeatureDeck.Converters
 {
     public class StateBrushConverter : IValueConverter
     {
