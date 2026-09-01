@@ -8,7 +8,7 @@ Inside Windows there are thousands of feature switches (Feature Staging) rolled 
 
 It is a WinUI 3 front-end for [ViVe](https://github.com/thebookisclosed/ViVe): it keeps the original kernel calls, adds the official name dictionary, search & filtering, batch operations, and a set of accidental-change protections — and fixes the access-violation crash the original always hits on Windows 11 24H2/25H2.
 
-<small>Originally "ViVe 图形化工具" (ViVeTool.GUI), forked from [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe).</small>
+<small>Originally "ViVe 图形化工具", forked from [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe).</small>
 
 | | |
 |---|---|
