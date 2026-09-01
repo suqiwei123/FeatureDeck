@@ -25,11 +25,6 @@ namespace FeatureDeck
             InitializeComponent();
             Title = AppResources.Get("AppTitle");
 
-            // RadioButtons 子项不支持 x:Uid，用资源填充
-            StoreSelector.Items.Add(AppResources.Get("StoreRuntime"));
-            StoreSelector.Items.Add(AppResources.Get("StoreBoot"));
-            StoreSelector.Items.Add(AppResources.Get("StoreBoth"));
-
             Root.Loaded += OnLoaded;
         }
 
@@ -38,6 +33,12 @@ namespace FeatureDeck
             Root.Loaded -= OnLoaded;
             ViewModel.XamlRoot = Content.XamlRoot;
             ResizeWindow();
+
+            // RadioButtons 子项不支持 x:Uid，且 Items 必须在控件挂载后才能填充
+            // （构造函数里操作 RadioButtons.Items 会触发 XAML 内部异常导致启动崩溃 0xc000027b）
+            StoreSelector.Items.Add(AppResources.Get("StoreRuntime"));
+            StoreSelector.Items.Add(AppResources.Get("StoreBoot"));
+            StoreSelector.Items.Add(AppResources.Get("StoreBoth"));
 
             if (!ViewModel.IsBuildSupported)
             {
