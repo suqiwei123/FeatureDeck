@@ -246,9 +246,6 @@
   <data name="Ready" xml:space="preserve">
     <value>准备就绪</value>
   </data>
-  <data name="RefreshButton.Content" xml:space="preserve">
-    <value>刷新</value>
-  </data>
   <data name="RefreshButton.Text" xml:space="preserve">
     <value>刷新</value>
   </data>

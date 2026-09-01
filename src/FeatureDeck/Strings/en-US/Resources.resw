@@ -246,9 +246,6 @@
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
-  <data name="RefreshButton.Content" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
   <data name="RefreshButton.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
