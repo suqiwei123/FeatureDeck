@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>ViVeProbe</RootNamespace>
+    <Platforms>x64</Platforms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ViVeTool.GUI\Native\NativeEnums.cs" Link="Native\NativeEnums.cs" />
+    <Compile Include="..\ViVeTool.GUI\Native\NativeStructs.cs" Link="Native\NativeStructs.cs" />
+    <Compile Include="..\ViVeTool.GUI\Native\Ntdll.cs" Link="Native\Ntdll.cs" />
+    <Compile Include="..\ViVeTool.GUI\Native\FeatureManager.cs" Link="Native\FeatureManager.cs" />
+    <Compile Include="..\ViVeTool.GUI\Native\FeaturePropertyOverflowException.cs" Link="Native\FeaturePropertyOverflowException.cs" />
+    <Compile Include="..\ViVeTool.GUI\Native\ObfuscationHelpers.cs" Link="Native\ObfuscationHelpers.cs" />
+  </ItemGroup>
+
+</Project>

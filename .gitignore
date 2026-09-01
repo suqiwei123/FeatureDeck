@@ -1,0 +1,74 @@
+## .NET / MSBuild 构建产物
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Xx]64/
+[Xx]86/
+[Bb]uild/|[Ll]og/
+artifacts/
+
+## 构建输出文件
+*.dll
+*.exe
+*.pdb
+*.winmd
+*.cache
+*.ilk
+*.meta
+*.obj
+*.tlog
+*.log
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.vspscc
+*.vssscc
+.builds
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+!packages/build/
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+
+## Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+## Windows 系统文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+## 备份与临时文件
+*~
+*.bak
+*.orig
+*.swp
+*.crlf
+*.tmp
+
+## WorkBuddy 本地工作数据（含个人记忆，不公开）
+.workbuddy/
+
+## 发布/打包产物
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
+publish/
+Installer/
