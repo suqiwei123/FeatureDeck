@@ -7,6 +7,7 @@
     <RootNamespace>FeatureDeck</RootNamespace>
     <AssemblyName>FeatureDeck</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\FeatureDeck.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
@@ -26,6 +27,9 @@
 
   <ItemGroup>
     <None Update="Assets\FeatureDictionary.pfs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\FeatureDeck.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Strings\**\*.resw">

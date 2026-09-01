@@ -72,3 +72,4 @@ $RECYCLE.BIN/
 *.appxbundle
 publish/
 Installer/
+dist/

@@ -148,6 +148,18 @@ namespace FeatureDeck
                 var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
                 var appWindow = AppWindow.GetFromWindowId(windowId);
                 appWindow.Resize(new Windows.Graphics.SizeInt32(1600, 900));
+                // 设置窗口图标（标题栏 + 任务栏）。exe 图标由 csproj 的 ApplicationIcon 设置；
+                // 这里设的是运行时窗口图标，让标题栏/任务栏显示应用图标而非通用窗口图标。
+                try
+                {
+                    var iconPath = System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "FeatureDeck.ico");
+                    if (System.IO.File.Exists(iconPath))
+                        appWindow.SetIcon(iconPath);
+                }
+                catch
+                {
+                    // 图标设置失败不影响主功能
+                }
             }
             catch
             {
