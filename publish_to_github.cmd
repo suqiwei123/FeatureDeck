@@ -25,9 +25,9 @@ if "%GH_USER%"=="" (
     exit /b 1
 )
 
-set GH_REPO=ViVe
-set /p GH_REPO=Repo name [default: ViVe]: 
-if "%GH_REPO%"=="" set GH_REPO=ViVe
+set GH_REPO=FeatureDeck
+set /p GH_REPO=Repo name [default: FeatureDeck]: 
+if "%GH_REPO%"=="" set GH_REPO=FeatureDeck
 
 set REPO_URL=https://github.com/%GH_USER%/%GH_REPO%.git
 echo.
