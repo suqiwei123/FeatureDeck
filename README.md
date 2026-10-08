@@ -84,7 +84,7 @@ src/
 ## Known Notes
 
 1. **24H2/25H2 compatibility fix**: the original ViVe's "pass null buffer first, then get count" call pattern triggers an access-violation crash on Windows 11 24H2/25H2. This project uses the standard "pre-allocate buffer + capacity in/out" pattern, verified working.
-2. Protected priorities (ImageDefault / EKB / ImageDefaultEditionOverride / Security / ImageOverride) cannot be written and are greyed out in the UI.
+2. Protected priorities (ImageDefault / EKB / ImageDefaultEditionOverride / Security / ImageOverride) can have overrides enabled/disabled via User priority, while their baseline entries cannot be directly reset.
 3. Writes to the "Boot" store require a system restart to take effect.
 4. Querying does not require administrator privileges, but writing does.
 5. The same feature ID may map to multiple priority entries; the table lists them as separate rows by (ID, priority).

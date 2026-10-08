@@ -284,10 +284,10 @@ namespace FeatureDeck.ViewModels
 
         private async Task ApplyStateAsync(RTL_FEATURE_ENABLED_STATE state, string actionName, bool confirm)
         {
-            var targets = SelectedItems.Where(x => x.CanEdit).ToList();
+            var targets = SelectedItems.Where(x => x.CanToggle).ToList();
             if (targets.Count == 0)
             {
-                await ShowMessageAsync(AppResources.Get("CannotOperateTitle"), AppResources.Get("CannotModifyMessage"));
+                await ShowMessageAsync(AppResources.Get("CannotOperateTitle"), AppResources.Get("NoSelection"));
                 return;
             }
 
@@ -332,7 +332,7 @@ namespace FeatureDeck.ViewModels
 
         public async Task ResetSelectedAsync(bool confirm = true)
         {
-            var targets = SelectedItems.Where(x => x.CanEdit).ToList();
+            var targets = SelectedItems.Where(x => x.CanReset).ToList();
             if (targets.Count == 0)
             {
                 await ShowMessageAsync(AppResources.Get("CannotOperateTitle"),
