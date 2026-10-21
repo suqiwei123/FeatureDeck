@@ -6,20 +6,34 @@
 
 Windows 内部藏着几千个通过 A/B 灰度下发的特性开关（Feature Staging）——微软用它们分批推送新界面和新功能，而你在「设置」里永远找不到它们。FeatureDeck 把这 2800+ 条配置摊到一张表上：查得到名字、看得懂含义、改得动状态，改错了还能一键还原。
 
-它是 [ViVe](https://github.com/thebookisclosed/ViVe) 的 WinUI 3 图形界面：沿用原版的内核调用，补上了官方名称字典、搜索筛选、批量操作和一套防误触保护，并修复了原版在 Windows 11 24H2/25H2 上必现的访问违规崩溃。
+它是 [ViVe](https://github.com/thebookisclosed/ViVe) 的 WinUI 3 图形界面：沿用原版的内核调用，补上了官方名称字典、搜索筛选、批量操作、修改历史与撤销、深浅色主题与云母材质，以及一套防误触保护，并修复了原版在 Windows 11 24H2/25H2 上必现的访问违规崩溃。
 
 <small>原名 ViVe 图形化工具（ViVeTool.GUI），fork 自 [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)。</small>
 
 | | |
 |---|---|
 | **上游项目** | [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)（原作者 @thebookisclosed） |
-| **本 fork 的改动** | 在 ViVe 内核层之上增加 WinUI 3 图形界面、特性名称字典、搜索筛选、双存储切换、批量操作、24H2/25H2 崩溃修复 |
+| **本 fork 的改动** | 在 ViVe 内核层之上增加 WinUI 3 图形界面、特性名称字典、搜索筛选、双存储切换、批量操作、修改历史 + 撤销、按 ID 快速启用/禁用、浅色/深色/跟随系统主题与 Mica 云母、统一设置窗口、24H2/25H2 崩溃修复 |
 | **技术栈** | C# / WinUI 3 / .NET 8（WindowsAppSDK 1.8，unpackaged 自包含部署） |
 | **许可证** | GPLv3（与上游一致，见 [LICENSE](LICENSE)） |
 
 > 本 fork 基于 ViVe（GPLv3）的公开源码移植内核层，同样以 GPLv3 授权。**仅供研究用途**，修改系统特性配置存在风险，请自行判断后果。
 
-## 功能（当前版本 v0.1，里程碑 M0–M4）
+## 功能——当前版本 **v0.9.0**（预览版）
+
+> v0.9.0 为**预览版**，可能存在未知问题，欢迎提 Issue 或 PR 反馈。
+
+### v0.9.0 新增
+
+| 功能 | 说明 |
+|---|---|
+| 修改历史与撤销 | 每次写入操作（单行、批量、全部还原）都会记录其真实触及的优先级层；工具栏「历史记录」可查看最近 100 条操作，两段式确认即可一键复原当时的状态 |
+| 快速启用 / 禁用 | 工具栏「快速操作」输入特性 ID 即可直接切换，无需在表格里翻找；提交前实时预览该 ID 对应的特性名称 |
+| 主题与云母 | 支持浅色 / 深色 / 跟随系统，可随时切换且重启后保留；Windows 11 22H2+ 使用 **Mica 云母材质**（旧版本回退实色背景），标题栏颜色随主题同步，深色模式可读性更好 |
+| 统一设置窗口 | 语言切换与配色设置合并进同一个设置对话框，界面更整洁 |
+| 修复：ImageDefault 条目被误锁 | v0.1.0 中，基线优先级为 `ImageDefault (0)` 的特性全部被标记为不可编辑，启用/禁用按钮置灰，导致大多数隐藏 UI 与实验特性（如 ID 61161268、61754985）无法切换。现在仅真正 *Immutable* 的条目保持置灰。感谢 **3304711297** 反馈。 |
+
+### 核心功能（v0.1.0 基线）
 
 | 功能 | 说明 |
 |---|---|
@@ -30,7 +44,7 @@ Windows 内部藏着几千个通过 A/B 灰度下发的特性开关（Feature St
 | 启用 / 禁用 | 单行或批量操作；写入启动存储后自动设置待重启标记 |
 | 还原 | 单条还原用户覆盖；「全部还原」需二次确认 |
 | 保护机制 | 系统镜像管理（Immutable）的条目置灰不可改，防止写入被拒绝 |
-| 中英双语 | 界面支持简体中文/英文，默认跟随系统语言；系统语言不受支持时自动弹出语言选择界面，也可随时手动切换（重启生效） |
+| 中英双语 | 界面支持简体中文/英文，默认跟随系统语言；系统语言不受支持时自动弹出语言选择界面，也可随时在设置窗口手动切换（重启生效） |
 | 启动存储修复 | 一键修复被系统写坏的 Last Known Good 存储 |
 
 ## 系统要求
@@ -62,10 +76,10 @@ src\FeatureDeck\bin\x64\Release\net8.0-windows10.0.19041.0\FeatureDeck.exe
 预编译包发布在 [Releases](https://github.com/suqiwei123/FeatureDeck/releases) 页面。本地构建发布 zip：
 
 ```
-build_release.cmd 0.1.0
+build_release.cmd 0.9.0
 ```
 
-输出：`dist\FeatureDeck-v0.1.0-win-x64.zip`（自包含，解压即用）。
+输出：`dist\FeatureDeck-v0.9.0-win-x64.zip`（自包含，解压即用）。
 
 ## 项目结构
 
@@ -73,21 +87,24 @@ build_release.cmd 0.1.0
 src/
   FeatureDeck/          主程序（WinUI 3）
     Native/              内核层：ntdll P/Invoke、结构体位域、FeatureManager（从 ViVe 移植）
-    Services/            服务层：查询合并、字典映射、NTSTATUS 翻译
-    Models/              数据模型
-    ViewModels/          主界面视图模型
+    Services/            服务层：查询合并、字典映射、NTSTATUS 翻译、修改历史与撤销（HistoryService）、主题与云母（ThemeService）
+    Models/              数据模型（特性行、历史记录）
+    ViewModels/          主列表视图模型 + 历史记录视图模型
+    Views/               对话框（历史浏览与撤销）
     Converters/          XAML 转换器
     Assets/              官方特性名称字典
+    Strings/             zh-CN / en-US 本地化资源
   ViVeProbe/             控制台探针（诊断工具，验证内核层工作是否正常）
 ```
 
 ## 已知注意事项
 
 1. **25H2 兼容性修正**：原版 ViVe 的「先传 null 缓冲区再取数量」调用方式在 Windows 11 24H2/25H2 上会触发访问违规崩溃，本项目已改为「预分配缓冲区 + 容量 in/out」的标准用法，实测正常。
-2. 受保护优先级（ImageDefault / EKB / ImageDefaultEditionOverride / Security / ImageOverride）不可写入，界面已置灰。
+2. 受保护优先级（ImageDefault / EKB / ImageDefaultEditionOverride / Security / ImageOverride）可通过 User 优先级启用/禁用其覆盖，但基线条目不可直接还原。
 3. 写入「启动时」存储后需重启系统才生效。
 4. 查询不需要管理员权限，但写入操作必须有。
 5. 同一个功能 ID 可能对应多个优先级条目，表格按 (ID, 优先级) 分行展示。
+6. 修改历史保存在 `%LOCALAPPDATA%\FeatureDeck\history.json`（保留最近 100 条，重启后仍在）；撤销按操作时捕获的快照回写原有优先级层，需要管理员权限。
 
 ## 命令行诊断
 
