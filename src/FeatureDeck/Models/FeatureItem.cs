@@ -42,6 +42,12 @@ namespace FeatureDeck.Models
             Priority == RTL_FEATURE_CONFIGURATION_PRIORITY.Test ||
             Priority == RTL_FEATURE_CONFIGURATION_PRIORITY.Dynamic;
 
+        // 任何特性均可写入 User 覆盖层以启用/禁用
+        public bool CanToggle => true;
+
+        // 仅非镜像受保护条目（用户/测试覆盖层）支持还原
+        public bool CanReset => !IsImmutable;
+
         public bool CanEdit => !IsImmutable;
 
         private static string Translate(RTL_FEATURE_ENABLED_STATE state) => state switch

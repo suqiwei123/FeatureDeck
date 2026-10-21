@@ -203,13 +203,13 @@
                                     VerticalAlignment="Center">
                             <Button x:Uid="RowEnable" FontSize="12" Padding="8,2"
                                     Tag="{x:Bind}" Click="RowEnable_Click"
-                                    IsEnabled="{x:Bind CanEdit, Mode=OneWay}" />
+                                    IsEnabled="{x:Bind CanToggle, Mode=OneWay}" />
                             <Button x:Uid="RowDisable" FontSize="12" Padding="8,2"
                                     Tag="{x:Bind}" Click="RowDisable_Click"
-                                    IsEnabled="{x:Bind CanEdit, Mode=OneWay}" />
+                                    IsEnabled="{x:Bind CanToggle, Mode=OneWay}" />
                             <Button x:Uid="RowReset" FontSize="12" Padding="8,2"
                                     Tag="{x:Bind}" Click="RowReset_Click"
-                                    IsEnabled="{x:Bind CanEdit, Mode=OneWay}" />
+                                    IsEnabled="{x:Bind CanReset, Mode=OneWay}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

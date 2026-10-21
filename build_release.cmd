@@ -8,8 +8,7 @@ cd /d "%~dp0src\FeatureDeck"
 
 set VER=%~1
 if "%VER%"=="" set VER=0.1.0
-set OUT=bind\Release
-et8.0-windows10.0.19041.0
+set OUT=bin\x64\Release\net8.0-windows10.0.19041.0
 set DIST=%~dp0dist
 set ZIP=%DIST%\FeatureDeck-v%VER%-win-x64.zip
 
