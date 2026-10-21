@@ -152,7 +152,15 @@ namespace FeatureDeck.ViewModels
         public async Task RefreshAsync()
         {
             if (IsBusy) return;
+            await RefreshCoreAsync();
+        }
 
+        /// <summary>
+        /// 重新读取内核配置。调用方必须处于非忙碌状态：RefreshAsync 的 IsBusy 守卫
+        /// 会直接返回，写操作链路因此必须等 IsBusy 复位后再刷新，否则表格停在旧状态。
+        /// </summary>
+        private async Task RefreshCoreAsync()
+        {
             IsBusy = true;
             Summary = AppResources.Get("Loading");
 
@@ -323,18 +331,27 @@ namespace FeatureDeck.ViewModels
             IsBusy = true;
             try
             {
+                bool writeRuntime = _store is StoreTarget.Runtime or StoreTarget.Both;
+                bool writeBoot = _store is StoreTarget.Boot or StoreTarget.Both;
+                var changes = new List<HistoryChange>();
+
                 var result = await Task.Run(() => FeatureService.SetState(
-                    targets, state,
-                    _store is StoreTarget.Runtime or StoreTarget.Both,
-                    _store is StoreTarget.Boot or StoreTarget.Both));
+                    targets, state, writeRuntime, writeBoot, changes));
+
+                await RecordHistoryAsync(
+                    state == RTL_FEATURE_ENABLED_STATE.Enabled
+                        ? HistoryAction.Enable
+                        : HistoryAction.Disable,
+                    changes, result, writeRuntime, writeBoot);
 
                 await ShowResultAsync(result, actionName, dialog: confirm);
-                await RefreshAsync();
             }
             finally
             {
                 IsBusy = false;
             }
+
+            await RefreshCoreAsync();
         }
 
         public Task QuickEnableByFeatureIdAsync(string idText)
@@ -388,18 +405,23 @@ namespace FeatureDeck.ViewModels
             IsBusy = true;
             try
             {
+                bool writeRuntime = _store is StoreTarget.Runtime or StoreTarget.Both;
+                bool writeBoot = _store is StoreTarget.Boot or StoreTarget.Both;
+                var changes = new List<HistoryChange>();
+
                 var result = await Task.Run(() => FeatureService.Reset(
-                    targets,
-                    _store is StoreTarget.Runtime or StoreTarget.Both,
-                    _store is StoreTarget.Boot or StoreTarget.Both));
+                    targets, writeRuntime, writeBoot, changes));
+
+                await RecordHistoryAsync(HistoryAction.Reset, changes, result, writeRuntime, writeBoot);
 
                 await ShowResultAsync(result, AppResources.Get("ActionReset"), dialog: confirm);
-                await RefreshAsync();
             }
             finally
             {
                 IsBusy = false;
             }
+
+            await RefreshCoreAsync();
         }
 
         public async Task FullResetAsync()
@@ -416,16 +438,61 @@ namespace FeatureDeck.ViewModels
             IsBusy = true;
             try
             {
+                bool writeRuntime = _store is StoreTarget.Runtime or StoreTarget.Both;
+                bool writeBoot = _store is StoreTarget.Boot or StoreTarget.Both;
+                var changes = new List<HistoryChange>();
+
                 var result = await Task.Run(() => FeatureService.FullReset(
-                    _store is StoreTarget.Runtime or StoreTarget.Both,
-                    _store is StoreTarget.Boot or StoreTarget.Both));
+                    writeRuntime, writeBoot, changes));
+
+                await RecordHistoryAsync(
+                    HistoryAction.FullReset, changes, result, writeRuntime, writeBoot);
 
                 await ShowResultAsync(result, AppResources.Get("ActionFullReset"));
-                await RefreshAsync();
             }
             finally
             {
                 IsBusy = false;
+            }
+
+            await RefreshCoreAsync();
+        }
+
+        /// <summary>
+        /// 把确实写入内核的操作写进历史。全部失败（没有写入任何存储）的操作不记录，
+        /// 否则历史里会出现无法撤销的空条目。
+        /// </summary>
+        private async Task RecordHistoryAsync(
+            HistoryAction action,
+            List<HistoryChange> changes,
+            OperationResult result,
+            bool writeRuntime,
+            bool writeBoot)
+        {
+            if (result == null || changes == null || changes.Count == 0)
+                return;
+            if (!result.AppliedRuntime && !result.AppliedBoot)
+                return;
+
+            var record = new HistoryRecord
+            {
+                Action = action,
+                WriteRuntime = writeRuntime,
+                WriteBoot = writeBoot,
+                AppliedRuntime = result.AppliedRuntime,
+                AppliedBoot = result.AppliedBoot,
+                Success = result.Success,
+                Message = result.Message
+            };
+            record.Changes.AddRange(changes);
+
+            try
+            {
+                await Task.Run(() => HistoryService.Add(record));
+            }
+            catch
+            {
+                // 历史落盘失败不影响本次操作结果
             }
         }
 

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using FeatureDeck.Models;
 using FeatureDeck.Services;
 using FeatureDeck.ViewModels;
+using FeatureDeck.Views;
 using WinRT.Interop;
 
 namespace FeatureDeck
@@ -64,6 +65,19 @@ namespace FeatureDeck
 
         private async void SettingsButton_Click(object sender, RoutedEventArgs e)
             => await ShowSettingsAsync();
+
+        /// <summary>
+        /// 打开修改历史对话框。对话框内可能撤销过记录，关闭后刷新主列表，
+        /// 没有撤销则不打扰（刷新要重新枚举全部特性配置）。
+        /// </summary>
+        private async void HistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new HistoryDialog { XamlRoot = Content.XamlRoot };
+            await dialog.ShowAsync();
+
+            if (dialog.ViewModel.AnyUndone)
+                await ViewModel.RefreshAsync();
+        }
 
         /// <summary>
         /// 设置对话框：默认颜色（即时生效）+ 界面语言（重启生效）。

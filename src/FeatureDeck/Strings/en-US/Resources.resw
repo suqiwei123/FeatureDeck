@@ -205,7 +205,7 @@
     <value>Reset All</value>
   </data>
   <data name="FullResetIrreversible" xml:space="preserve">
-    <value>This cannot be undone. Continue?</value>
+    <value>This clears every user override. You can undo it later from History. Continue?</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Reading feature configurations...</value>
@@ -433,5 +433,81 @@
   </data>
   <data name="SettingsNote" xml:space="preserve">
     <value>Color setting applies immediately; language changes take effect after restart.</value>
+  </data>
+  <!-- History and undo -->
+  <data name="HistoryButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>View change history and undo</value>
+  </data>
+  <data name="HistoryButtonText.Text" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="HistoryDialogTitle" xml:space="preserve">
+    <value>Change History</value>
+  </data>
+  <data name="HistoryListHeader.Text" xml:space="preserve">
+    <value>Operations</value>
+  </data>
+  <data name="HistoryEmpty.Text" xml:space="preserve">
+    <value>No changes recorded yet. Enabling, disabling or resetting a feature adds an undoable entry here.</value>
+  </data>
+  <data name="HistorySelectHint.Text" xml:space="preserve">
+    <value>Select a record on the left to see the details</value>
+  </data>
+  <data name="HistoryRetentionHint.Text" xml:space="preserve">
+    <value>Only the latest 100 records are kept; undo restores the snapshot taken at the time.</value>
+  </data>
+  <data name="HistoryFailedBadge.Text" xml:space="preserve">
+    <value>Partially failed</value>
+  </data>
+  <data name="HistoryUndoneBadge.Text" xml:space="preserve">
+    <value>Undone</value>
+  </data>
+  <data name="HistoryRecordSummaryFormat" xml:space="preserve">
+    <value>{0} change(s) · {1}</value>
+  </data>
+  <data name="HistoryDetailTitleFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="HistoryDetailMetaFormat" xml:space="preserve">
+    <value>{0}  ·  {1} change(s)</value>
+  </data>
+  <data name="HistoryDetailResultFormat" xml:space="preserve">
+    <value>Result: {0}</value>
+  </data>
+  <data name="HistoryUndoneFormat" xml:space="preserve">
+    <value>Undone at {0}</value>
+  </data>
+  <data name="HistoryEntryFormat" xml:space="preserve">
+    <value>#{0}  {1}</value>
+  </data>
+  <data name="HistoryPriorityFormat" xml:space="preserve">
+    <value>Priority {0}</value>
+  </data>
+  <data name="HistoryStoreChangeFormat" xml:space="preserve">
+    <value>{0}: {1} → {2}</value>
+  </data>
+  <data name="HistoryUnconfigured" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="HistoryUndoButton" xml:space="preserve">
+    <value>Undo this change</value>
+  </data>
+  <data name="HistoryUndoConfirmButton" xml:space="preserve">
+    <value>Click again to confirm undo</value>
+  </data>
+  <data name="HistoryNoSelection" xml:space="preserve">
+    <value>Select a record on the left first.</value>
+  </data>
+  <data name="HistoryAlreadyUndone" xml:space="preserve">
+    <value>This record has already been undone.</value>
+  </data>
+  <data name="HistoryNoChanges" xml:space="preserve">
+    <value>This record has no undoable details.</value>
+  </data>
+  <data name="ActionUndo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="UndoPartialFormat" xml:space="preserve">
+    <value>{0}: {1} succeeded, {2} failed ({3})</value>
   </data>
 </root>

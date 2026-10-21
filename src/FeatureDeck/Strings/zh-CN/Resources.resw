@@ -205,7 +205,7 @@
     <value>全部还原</value>
   </data>
   <data name="FullResetIrreversible" xml:space="preserve">
-    <value>此操作不可撤销，确定继续吗？</value>
+    <value>此操作会清除所有用户覆盖，之后可在「历史记录」中撤销。确定继续吗？</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>正在读取特性配置…</value>
@@ -433,5 +433,81 @@
   </data>
   <data name="SettingsNote" xml:space="preserve">
     <value>颜色设置立即生效；语言切换需重启应用后生效。</value>
+  </data>
+  <!-- 修改历史与撤销 -->
+  <data name="HistoryButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>查看修改历史并撤销</value>
+  </data>
+  <data name="HistoryButtonText.Text" xml:space="preserve">
+    <value>历史记录</value>
+  </data>
+  <data name="HistoryDialogTitle" xml:space="preserve">
+    <value>修改历史</value>
+  </data>
+  <data name="HistoryListHeader.Text" xml:space="preserve">
+    <value>操作记录</value>
+  </data>
+  <data name="HistoryEmpty.Text" xml:space="preserve">
+    <value>还没有修改记录。启用、禁用或还原特性后，这里会显示可撤销的历史。</value>
+  </data>
+  <data name="HistorySelectHint.Text" xml:space="preserve">
+    <value>在左侧选择一条记录查看更改详情</value>
+  </data>
+  <data name="HistoryRetentionHint.Text" xml:space="preserve">
+    <value>仅保留最近 100 条记录；撤销以记录当时的快照为准。</value>
+  </data>
+  <data name="HistoryFailedBadge.Text" xml:space="preserve">
+    <value>未完全成功</value>
+  </data>
+  <data name="HistoryUndoneBadge.Text" xml:space="preserve">
+    <value>已撤销</value>
+  </data>
+  <data name="HistoryRecordSummaryFormat" xml:space="preserve">
+    <value>{0} 项更改 · {1}</value>
+  </data>
+  <data name="HistoryDetailTitleFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="HistoryDetailMetaFormat" xml:space="preserve">
+    <value>{0}　·　共 {1} 项更改</value>
+  </data>
+  <data name="HistoryDetailResultFormat" xml:space="preserve">
+    <value>结果：{0}</value>
+  </data>
+  <data name="HistoryUndoneFormat" xml:space="preserve">
+    <value>已于 {0} 撤销</value>
+  </data>
+  <data name="HistoryEntryFormat" xml:space="preserve">
+    <value>#{0}　{1}</value>
+  </data>
+  <data name="HistoryPriorityFormat" xml:space="preserve">
+    <value>优先级 {0}</value>
+  </data>
+  <data name="HistoryStoreChangeFormat" xml:space="preserve">
+    <value>{0}：{1} → {2}</value>
+  </data>
+  <data name="HistoryUnconfigured" xml:space="preserve">
+    <value>未配置</value>
+  </data>
+  <data name="HistoryUndoButton" xml:space="preserve">
+    <value>撤销此记录</value>
+  </data>
+  <data name="HistoryUndoConfirmButton" xml:space="preserve">
+    <value>再次点击确认撤销</value>
+  </data>
+  <data name="HistoryNoSelection" xml:space="preserve">
+    <value>请先在左侧选择一条记录。</value>
+  </data>
+  <data name="HistoryAlreadyUndone" xml:space="preserve">
+    <value>该记录已经撤销过了。</value>
+  </data>
+  <data name="HistoryNoChanges" xml:space="preserve">
+    <value>这条记录没有可撤销的明细。</value>
+  </data>
+  <data name="ActionUndo" xml:space="preserve">
+    <value>撤销</value>
+  </data>
+  <data name="UndoPartialFormat" xml:space="preserve">
+    <value>{0}：成功 {1} 条，失败 {2} 条（{3}）</value>
   </data>
 </root>

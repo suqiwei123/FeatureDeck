@@ -60,12 +60,21 @@
                 <Button x:Uid="FixLkgButton" Click="FixLkgButton_Click" />
             </StackPanel>
 
-            <Button Grid.Column="4"
-                    x:Uid="SettingsButton"
-                    Click="SettingsButton_Click"
-                    VerticalAlignment="Bottom">
-                <FontIcon Glyph="&#xE713;" FontSize="16" />
-            </Button>
+            <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="8" VerticalAlignment="Bottom">
+                <Button Click="HistoryButton_Click"
+                        x:Uid="HistoryButton"
+                        IsEnabled="{x:Bind ViewModel.IsIdle, Mode=OneWay}">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <FontIcon Glyph="&#xE81C;" FontSize="14" />
+                        <TextBlock x:Uid="HistoryButtonText" />
+                    </StackPanel>
+                </Button>
+
+                <Button x:Uid="SettingsButton"
+                        Click="SettingsButton_Click">
+                    <FontIcon Glyph="&#xE713;" FontSize="16" />
+                </Button>
+            </StackPanel>
         </Grid>
 
         <Grid Grid.Row="1" ColumnSpacing="8" Margin="0,0,0,8">
