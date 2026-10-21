@@ -5,7 +5,8 @@
 [Rr]elease/
 [Xx]64/
 [Xx]86/
-[Bb]uild/|[Ll]og/
+[Bb]uild/
+[Ll]og/
 artifacts/
 
 ## 构建输出文件
@@ -73,3 +74,16 @@ $RECYCLE.BIN/
 publish/
 Installer/
 dist/
+AppPackages/
+*.zip
+
+## WinUI 3 / UWP 生成物
+*.xbf
+*.binlog
+TestResults/
+*.trx
+*.dmp
+*.etl
+
+## ZCode 本地会话数据（计划、缓存，不公开）
+.zcode/
