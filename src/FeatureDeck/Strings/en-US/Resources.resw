@@ -231,6 +231,36 @@
   <data name="ProtectedLabel.Text" xml:space="preserve">
     <value>Protected</value>
   </data>
+  <data name="QuickDisable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="QuickEnable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="QuickIdBox.PlaceholderText" xml:space="preserve">
+    <value>Enter feature ID…</value>
+  </data>
+  <data name="QuickInvalidId" xml:space="preserve">
+    <value>Please enter a valid feature ID (decimal digits).</value>
+  </data>
+  <data name="QuickNameFormat" xml:space="preserve">
+    <value>Name: {0}</value>
+  </data>
+  <data name="QuickNotFound" xml:space="preserve">
+    <value>ID not found in the current configuration list.</value>
+  </data>
+  <data name="QuickNotFoundFormat" xml:space="preserve">
+    <value>No feature configuration found for ID {0} (neither Runtime nor Boot).</value>
+  </data>
+  <data name="QuickOpButton.Text" xml:space="preserve">
+    <value>Quick Toggle</value>
+  </data>
+  <data name="QuickOpDescFormat" xml:space="preserve">
+    <value>Type a feature ID (decimal). The change is written to the current store: {0}.</value>
+  </data>
+  <data name="QuickOpTitle" xml:space="preserve">
+    <value>Quick Enable / Disable</value>
+  </data>
   <data name="ReadFailedMessageFormat" xml:space="preserve">
     <value>An exception occurred while reading feature configurations: {0}</value>
   </data>
@@ -378,5 +408,30 @@
   </data>
   <data name="LangButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Switch UI language</value>
+  </data>
+  <!-- Settings -->
+  <data name="SettingsButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsDialogTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsThemeHeader" xml:space="preserve">
+    <value>Default color</value>
+  </data>
+  <data name="ThemeFollowSystem" xml:space="preserve">
+    <value>Follow system</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="SettingsLanguageHeader" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SettingsNote" xml:space="preserve">
+    <value>Color setting applies immediately; language changes take effect after restart.</value>
   </data>
 </root>

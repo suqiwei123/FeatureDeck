@@ -133,10 +133,10 @@
     <value>变体</value>
   </data>
   <data name="ConfirmBodyDisableFormat" xml:space="preserve">
-    <value>将对 {0} 条特性执行「{1}」，目标存储：{2}。</value>
+    <value>将禁用 {0} 条特性，目标存储：{1}。</value>
   </data>
   <data name="ConfirmBodyEnableFormat" xml:space="preserve">
-    <value>将对 {0} 条特性执行「{1}」，目标存储：{2}。</value>
+    <value>将启用 {0} 条特性，目标存储：{1}。</value>
   </data>
   <data name="ConfirmBodyResetFormat" xml:space="preserve">
     <value>将清除 {0} 条特性的用户覆盖，恢复系统默认状态。{1}</value>
@@ -230,6 +230,36 @@
   </data>
   <data name="ProtectedLabel.Text" xml:space="preserve">
     <value>受保护</value>
+  </data>
+  <data name="QuickDisable" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="QuickEnable" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="QuickIdBox.PlaceholderText" xml:space="preserve">
+    <value>输入特性 ID…</value>
+  </data>
+  <data name="QuickInvalidId" xml:space="preserve">
+    <value>请输入有效的特性 ID（十进制数字）。</value>
+  </data>
+  <data name="QuickNameFormat" xml:space="preserve">
+    <value>名称：{0}</value>
+  </data>
+  <data name="QuickNotFound" xml:space="preserve">
+    <value>当前配置列表中未找到该 ID。</value>
+  </data>
+  <data name="QuickNotFoundFormat" xml:space="preserve">
+    <value>未找到 ID {0} 的特性配置（Runtime/Boot 均无）。</value>
+  </data>
+  <data name="QuickOpButton.Text" xml:space="preserve">
+    <value>快捷启用/禁用</value>
+  </data>
+  <data name="QuickOpDescFormat" xml:space="preserve">
+    <value>输入特性 ID（十进制），将写入当前存储：{0}。</value>
+  </data>
+  <data name="QuickOpTitle" xml:space="preserve">
+    <value>快捷启用 / 禁用</value>
   </data>
   <data name="ReadFailedMessageFormat" xml:space="preserve">
     <value>读取本机特性配置时出现异常：{0}</value>
@@ -378,5 +408,30 @@
   </data>
   <data name="LangButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>切换界面语言</value>
+  </data>
+  <!-- 设置 -->
+  <data name="SettingsButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SettingsDialogTitle" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SettingsThemeHeader" xml:space="preserve">
+    <value>默认颜色</value>
+  </data>
+  <data name="ThemeFollowSystem" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="SettingsLanguageHeader" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="SettingsNote" xml:space="preserve">
+    <value>颜色设置立即生效；语言切换需重启应用后生效。</value>
   </data>
 </root>

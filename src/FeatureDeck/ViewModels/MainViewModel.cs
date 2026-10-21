@@ -126,15 +126,8 @@ namespace FeatureDeck.ViewModels
 
         public bool HasSelection => SelectedItems.Count > 0;
 
-        /// <summary>语言切换按钮的显示文本（跟随系统时显示当前语言名）。</summary>
-        public string LanguageLabel =>
-            string.IsNullOrEmpty(AppResources.UserOverrideLanguage)
-                ? AppResources.Get("LangFollowSystem")
-                : (AppResources.CurrentLanguage == AppResources.DefaultLanguage
-                    ? AppResources.Get("LangChinese")
-                    : AppResources.Get("LangEnglish"));
-
-        public string LanguageToolTip => AppResources.Get("LangButton.ToolTipService.ToolTip");
+        /// <summary>当前目标存储的显示文本（快捷操作对话框等处使用）。</summary>
+        public string StoreDescription => DescribeStore();
 
         public async Task InitializeAsync()
         {
@@ -248,6 +241,9 @@ namespace FeatureDeck.ViewModels
             OnPropertyChanged(nameof(HasSelection));
         }
 
+        /// <summary>当前已加载的配置里是否存在该 ID（快捷对话框的名称预览用）。</summary>
+        public bool HasFeatureId(uint featureId) => _allItems.Any(x => x.FeatureId == featureId);
+
         public async Task EnableSelectedAsync()
             => await ApplyStateAsync(RTL_FEATURE_ENABLED_STATE.Enabled, AppResources.Get("ActionEnable"), confirm: true);
 
@@ -313,6 +309,17 @@ namespace FeatureDeck.ViewModels
                 if (!confirmed) return;
             }
 
+            await ApplyItemsAsync(targets, state, actionName, confirm, skipped);
+        }
+
+        // 写入执行段：批量、行内、快捷 ID 共用同一条链路，不触碰表格选中状态
+        private async Task ApplyItemsAsync(
+            List<FeatureItem> targets,
+            RTL_FEATURE_ENABLED_STATE state,
+            string actionName,
+            bool confirm,
+            int skipped = 0)
+        {
             IsBusy = true;
             try
             {
@@ -328,6 +335,34 @@ namespace FeatureDeck.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public Task QuickEnableByFeatureIdAsync(string idText)
+            => QuickApplyByFeatureIdAsync(idText, RTL_FEATURE_ENABLED_STATE.Enabled, AppResources.Get("ActionEnable"));
+
+        public Task QuickDisableByFeatureIdAsync(string idText)
+            => QuickApplyByFeatureIdAsync(idText, RTL_FEATURE_ENABLED_STATE.Disabled, AppResources.Get("ActionDisable"));
+
+        private async Task QuickApplyByFeatureIdAsync(
+            string idText, RTL_FEATURE_ENABLED_STATE state, string actionName)
+        {
+            if (!uint.TryParse((idText ?? string.Empty).Trim(), out var featureId))
+            {
+                await ShowMessageAsync(AppResources.Get("CannotOperateTitle"), AppResources.Get("QuickInvalidId"));
+                return;
+            }
+
+            var item = _allItems.FirstOrDefault(x => x.FeatureId == featureId)
+                ?? await Task.Run(() => FeatureService.LoadById(featureId));
+
+            if (item == null)
+            {
+                await ShowMessageAsync(AppResources.Get("CannotOperateTitle"),
+                    AppResources.Format("QuickNotFoundFormat", featureId));
+                return;
+            }
+
+            await ApplyItemsAsync(new List<FeatureItem> { item }, state, actionName, confirm: false);
         }
 
         public async Task ResetSelectedAsync(bool confirm = true)

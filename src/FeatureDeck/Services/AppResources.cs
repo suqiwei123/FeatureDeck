@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Microsoft.Windows.ApplicationModel.Resources;
 
 namespace FeatureDeck.Services
@@ -23,6 +25,10 @@ namespace FeatureDeck.Services
         private static readonly string SettingsDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FeatureDeck");
         private static readonly string SettingsFile = Path.Combine(SettingsDir, "settings.ini");
+
+        // settings.ini 通用键值存储（key=value 一行一条）。
+        // 必须整体读写：单独重写某一键会丢掉其余设置（旧版 SaveLanguage 只写 language）。
+        private static Dictionary<string, string> _settings;
 
         /// <summary>当前生效的语言代码（两字母或完整 BCP-47），如 zh-CN / en-US。</summary>
         public static string CurrentLanguage { get; private set; } = DefaultLanguage;
@@ -163,6 +169,62 @@ namespace FeatureDeck.Services
         public static bool IsSupported(string language)
             => language == DefaultLanguage || language == EnglishLanguage;
 
+        /// <summary>
+        /// 读取设置项；键不存在或值为空时返回 fallback。
+        /// （语言为空即"跟随系统"，主题正常不会出现空值。）
+        /// </summary>
+        public static string GetSetting(string key, string fallback)
+        {
+            if (EnsureSettings().TryGetValue(key, out var value) && !string.IsNullOrEmpty(value))
+                return value;
+            return fallback;
+        }
+
+        /// <summary>写入设置项并持久化全部键值。</summary>
+        public static void SetSetting(string key, string value)
+        {
+            EnsureSettings()[key] = value ?? string.Empty;
+            WriteSettings();
+        }
+
+        private static Dictionary<string, string> EnsureSettings()
+        {
+            if (_settings != null) return _settings;
+
+            var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            try
+            {
+                if (File.Exists(SettingsFile))
+                {
+                    foreach (var line in File.ReadAllLines(SettingsFile))
+                    {
+                        var idx = line.IndexOf('=');
+                        if (idx <= 0) continue;
+                        map[line.Substring(0, idx).Trim()] = line.Substring(idx + 1).Trim();
+                    }
+                }
+            }
+            catch
+            {
+                // 读取失败按空配置处理
+            }
+            return _settings = map;
+        }
+
+        private static void WriteSettings()
+        {
+            try
+            {
+                Directory.CreateDirectory(SettingsDir);
+                File.WriteAllLines(SettingsFile,
+                    EnsureSettings().Select(kv => kv.Key + "=" + kv.Value));
+            }
+            catch
+            {
+                // 保存失败不阻塞主功能
+            }
+        }
+
         private static void ApplyOverride()
         {
             try
@@ -182,35 +244,9 @@ namespace FeatureDeck.Services
         }
 
         private static string ReadSavedLanguage()
-        {
-            try
-            {
-                if (!File.Exists(SettingsFile)) return FollowSystem;
-                var lines = File.ReadAllLines(SettingsFile);
-                foreach (var line in lines)
-                {
-                    if (line.StartsWith("language=", StringComparison.OrdinalIgnoreCase))
-                        return line.Substring("language=".Length).Trim();
-                }
-            }
-            catch
-            {
-                // 读取失败按未设置处理
-            }
-            return FollowSystem;
-        }
+            => GetSetting("language", FollowSystem);
 
         private static void SaveLanguage(string language)
-        {
-            try
-            {
-                Directory.CreateDirectory(SettingsDir);
-                File.WriteAllLines(SettingsFile, new[] { "language=" + language });
-            }
-            catch
-            {
-                // 保存失败不阻塞主功能
-            }
-        }
+            => SetSetting("language", language);
     }
 }

@@ -137,6 +137,55 @@ namespace FeatureDeck.Services
             return result;
         }
 
+        /// <summary>
+        /// 按单个 ID 现查配置（快捷操作用）。先查 Runtime 再查 Boot，
+        /// 两个存储都没有返回 null。字段映射与 LoadAll 一致，保证后续写入携带
+        /// Wexp 标志与 Variant 信息。
+        /// </summary>
+        public static FeatureItem LoadById(uint featureId)
+        {
+            Albacore.ViVe.NativeStructs.RTL_FEATURE_CONFIGURATION? runtime = null;
+            Albacore.ViVe.NativeStructs.RTL_FEATURE_CONFIGURATION? boot = null;
+            try
+            {
+                runtime = FeatureManager.QueryFeatureConfiguration(
+                    featureId, RTL_FEATURE_CONFIGURATION_TYPE.Runtime);
+                boot = FeatureManager.QueryFeatureConfiguration(
+                    featureId, RTL_FEATURE_CONFIGURATION_TYPE.Boot);
+            }
+            catch
+            {
+                return null;
+            }
+
+            var src = runtime ?? boot;
+            if (src == null)
+                return null;
+
+            var cfg = src.Value;
+            var item = new FeatureItem
+            {
+                FeatureId = cfg.FeatureId,
+                Priority = cfg.Priority,
+                IsImmutable = FeatureManager.IsPriorityImmutable(cfg.Priority),
+                IsWexpConfiguration = cfg.IsWexpConfiguration,
+                HasSubscriptions = cfg.HasSubscriptions,
+                Variant = cfg.Variant,
+                VariantPayloadKind = cfg.VariantPayloadKind,
+                VariantPayload = cfg.VariantPayload,
+                ExistsInRuntime = runtime != null,
+                RuntimeState = runtime?.EnabledState ?? default,
+                ExistsInBoot = boot != null,
+                BootState = boot?.EnabledState ?? default
+            };
+
+            item.Name = FeatureNaming.GetName(item.FeatureId);
+            var categoryKey = FeatureCategory.Classify(item.Name);
+            item.Category = categoryKey != null ? AppResources.Get(categoryKey) : null;
+
+            return item;
+        }
+
         public static OperationResult SetState(
             IEnumerable<FeatureItem> items,
             RTL_FEATURE_ENABLED_STATE state,
